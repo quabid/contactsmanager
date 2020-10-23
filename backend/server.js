@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import path from 'path';
 import { customAlphabet } from 'nanoid';
 import landing from './routes/landing.js';
@@ -32,7 +33,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Enable cors
-// app.use(cors());
+app.use(cors());
 
 // Views Path
 // app.set("views", path.join(__dirname, "views"));

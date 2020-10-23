@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Row, Col, Jumbotron, CardImg } from 'react-bootstrap';
 import users from '../Users';
 
-const UserCard = ({ id }) => {
+const ContactCard = ({ id }) => {
   const user = users.find(
     (u) => u.id.toString().trim() === id.toString().trim()
   );
@@ -76,4 +76,4 @@ const UserCard = ({ id }) => {
   );
 };
 
-export default UserCard;
+export default ContactCard;

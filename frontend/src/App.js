@@ -4,8 +4,9 @@ import { Container } from 'react-bootstrap';
 import Home from './screens/HomeScreen';
 import Header from './components/Header';
 import SigninScreen from './screens/SigninScreen';
-import UsersScreen from './screens/UsersScreen';
-import UserScreen from './screens/UserScreen';
+import ContactsScreen from './screens/ContactsScreen';
+import ContactScreen from './screens/ContactScreen';
+import EditContactScreen from './screens/EditContactScreen';
 
 const App = () => {
   return (
@@ -15,9 +16,14 @@ const App = () => {
         <Container>
           <Route path='/' component={Home} exact />
           <Route path='/auth/signin' component={SigninScreen} exact />
-          <Route path='/api/users' component={UsersScreen} exact />
-          <Route path='/api/users/edit/:id' component={UserScreen} exact />
-          <Route path='/api/users/delete/:id' exact />
+          <Route path='/api/contacts' component={ContactsScreen} exact />
+          <Route path='/api/contacts/:id' component={ContactScreen} exact />
+          <Route
+            path='/api/contacts/edit/:id'
+            component={EditContactScreen}
+            exact
+          />
+          <Route path='/api/contacts/delete/:id' exact />
         </Container>
       </main>
     </Router>
