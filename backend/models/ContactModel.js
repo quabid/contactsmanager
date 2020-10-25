@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
 const geoSchema = mongoose.Schema({
+  contact: {
+    type: mongoose.SchemaType.ObjectId,
+    ref: 'Contact',
+  },
   latitude: {
     type: String,
   },
@@ -11,9 +15,14 @@ const geoSchema = mongoose.Schema({
 
 const emailSchema = mongoose.Schema(
   {
-    label: {
+    contact: {
+      type: mongoose.SchemaType.ObjectId,
+      ref: 'Contact',
+    },
+    type: {
       type: String,
       required: true,
+      default: 'home',
     },
     address: {
       type: String,
@@ -27,9 +36,14 @@ const emailSchema = mongoose.Schema(
 
 const phoneSchema = mongoose.Schema(
   {
-    label: {
+    contact: {
+      type: mongoose.SchemaType.ObjectId,
+      ref: 'Contact',
+    },
+    type: {
       type: String,
       required: true,
+      default: 'home',
     },
     number: {
       type: String,
@@ -43,9 +57,14 @@ const phoneSchema = mongoose.Schema(
 
 const addressSchema = mongoose.Schema(
   {
-    label: {
+    contact: {
+      type: mongoose.SchemaType.ObjectId,
+      ref: 'Contact',
+    },
+    type: {
       type: String,
       required: true,
+      default: 'home',
     },
     street: {
       type: String,
@@ -78,7 +97,15 @@ const contactSchema = mongoose.Schema({
 
 contactSchema.methods.findByEmail = function (email) {
   const contact = this.toObject();
-  if (contact.emails.find((x) => x == email) != undefined) {
+  if (contact.emails.find((x) => x.email == email) != undefined) {
+    return contact;
+  }
+  return null;
+};
+
+contactSchema.methods.findByPhone = function (phone) {
+  const contact = this.toObject();
+  if (contact.phones.find((x) => x.phone == phone) != undefined) {
     return contact;
   }
   return null;

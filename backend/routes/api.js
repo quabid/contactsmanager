@@ -5,8 +5,12 @@ const api = Router();
 
 api.route('/').get(Api.getIndex);
 
-api.route('/contacts').get(Api.getContacts).post(Api.postContact);
+api.route('/contacts').get(Api.getContacts).post(Api.createContact);
 
-api.route('/contacts/:id').get(Api.getContact).put(Api.putContact);
+api
+  .route('/contacts/:id')
+  .get(Api.getContact)
+  .put(Api.updateContact)
+  .delete(Api.deleteContact);
 
 export default api;

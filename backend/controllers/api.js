@@ -5,7 +5,7 @@ import { log } from '../../custom_modules/Printer.js';
 import users from '../data/users.js';
 const logger = bunyan.createLogger({ name: 'api controller' });
 
-// @desc        Get all contacts route
+// @desc        Get contacts route
 // @route       GET /api/contacts
 // @access      Private
 export const getContacts = (req, res) => {
@@ -18,16 +18,19 @@ export const getContacts = (req, res) => {
   });
 };
 
-// @desc        Get single contact route
+// @desc        Get contact route
 // @route       GET /api/contacts/:id
 // @access      Private
 export const getContact = (req, res) => {
-  logger.info(`Requested URL: ${req.url}`);
+  const id = req.params.id;
+
+  logger.info(`Requested URL: ${req.url}/${id}`);
+
   res.status(200).json({
-    path: '/api/contacts/id',
+    path: `/api/contacts/${id}`,
     method: req.method,
     requestedUrl: `${req.url}`,
-    payload: stringify(users.find((x) => x.id == req.params.id)) || null,
+    payload: stringify(users.find((x) => x.id == req.params.id)),
   });
 };
 
@@ -42,35 +45,49 @@ export const getIndex = (req, res) => {
   });
 };
 
-// @desc        Create a new contact member
+// @desc        Create contact route
 // @route       POST /api/contacts
 // @access      Private
-export const postContact = (req, res) => {
-  const { fname, lname, email, phone, address, website } = req.body;
+export const createContact = (req, res) => {
+  const { fname, lname, email, phone, street, city, zipcode } = req.body;
   log(
-    `Received data for new contact: ${fname}, ${lname}, ${email}, ${phone}, ${stringify(
-      address
-    )} and ${website}`.brightBlue.bold.dim
+    `Received data for new contact: ${fname}, ${lname}, ${email}, ${phone}, ${street} ${city} ${zipcode}`
+      .brightBlue.bold
   );
 
   res.status(200).json({
-    path: '/api/contacts',
+    path: `/api/contacts`,
     method: req.method,
     requestedUrl: req.url,
   });
 };
 
-// @desc        Update contact
+// @desc        Update contact route
 // @route       PUT /api/contacts/id
 // @access      Private
-export const putContact = (req, res) => {
+export const updateContact = (req, res) => {
   log(
     `Received update data for existing contact: ${stringify(req.body)}`
-      .brightBlue.bold.dim
+      .brightBlue.bold
   );
 
   res.status(200).json({
-    path: '/api/contacts',
+    path: `/api/contacts`,
+    method: req.method,
+    requestedUrl: req.url,
+  });
+};
+
+// @desc        Delete contact route
+// @route       DELETE /api/contacts/id
+// @access      Private
+export const deleteContact = (req, res) => {
+  const id = req.params.id;
+
+  log(`Received contact id for deletion: ${id}`.brightBlue.bold);
+
+  res.status(200).json({
+    path: `/api/contacts/${id}`,
     method: req.method,
     requestedUrl: req.url,
   });
