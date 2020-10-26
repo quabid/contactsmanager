@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "server": "clear && nodemon backend/server",
+    "client": "npm start --prefix frontend",
     "dev": "clear && concurrently \"nodemon backend/server\" \"npm run client\"",
     "data:import": "clear && node backend/seeder",
     "data:destroy": "clear && node backend/seeder -d"
@@ -20,7 +21,8 @@
     "express": "^4.17.1",
     "mongoose": "^5.10.9",
     "nanoid": "^3.1.12",
-    "redux-devtools-extension": "^2.13.8"
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "bunyan": "^1.8.14",
