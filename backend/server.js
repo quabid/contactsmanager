@@ -17,9 +17,8 @@ app.use((req, res, next) => {
   res.setHeader('Pragma', 'no-cache');
   res.setHeader('Expires', '-1');
   res.setHeader('X-XSS-Protection', '1;mode=block');
-  //   res.setHeader('Content-Type', 'application/json; charset=utf-8');
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
   res.setHeader('keep-alive', '-1');
-  res.setHeader('Content-Type', 'application/json');
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
   res.setHeader('Content-Security-Policy', "script-src 'self'");
   res.setHeader('X-Content-Type-Options', 'nosniff');

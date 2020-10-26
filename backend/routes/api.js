@@ -8,7 +8,7 @@ api.route('/').get(Api.getIndex);
 api.route('/contacts').get(Api.getContacts).post(Api.createContact);
 
 api
-  .route('/contacts/:id')
+  .route('/contact/:id')
   .get(Api.getContact)
   .put(Api.updateContact)
   .delete(Api.deleteContact);

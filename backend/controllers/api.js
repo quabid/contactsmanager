@@ -2,7 +2,7 @@ import bunyan from 'bunyan';
 import colors from 'colors';
 import { stringify } from '../../custom_modules/ObjectUtils.js';
 import { log } from '../../custom_modules/Printer.js';
-import users from '../data/users.js';
+import users from '../data/users_dev.js';
 const logger = bunyan.createLogger({ name: 'api controller' });
 
 // @desc        Get contacts route
@@ -23,14 +23,16 @@ export const getContacts = (req, res) => {
 // @access      Private
 export const getContact = (req, res) => {
   const id = req.params.id;
+  const user = users.find((x) => x.id == req.params.id);
 
   logger.info(`Requested URL: ${req.url}/${id}`);
+  log(user);
 
   res.status(200).json({
-    path: `/api/contacts/${id}`,
+    path: `/api/contact/${id}`,
     method: req.method,
     requestedUrl: `${req.url}`,
-    payload: stringify(users.find((x) => x.id == req.params.id)),
+    payload: stringify(user),
   });
 };
 
