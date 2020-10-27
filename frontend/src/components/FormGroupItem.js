@@ -23,10 +23,10 @@ const FormGroupItem = ({ handleChange, fa, type, value }) => {
             </Form.Label>
             <Form.Control as='select' custom>
               <option>home</option>
-              <option>work</option>
-              <option>personal</option>
               <option>business</option>
+              <option>mobile</option>
               <option>other</option>
+              <option>personal</option>
             </Form.Control>
           </Form.Group>
         ) : (
