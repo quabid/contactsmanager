@@ -1,6 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Accordion, Card, Jumbotron, Row, Col, CardImg } from 'react-bootstrap';
+import {
+  Accordion,
+  Card,
+  Jumbotron,
+  Row,
+  Col,
+  CardImg,
+  Form,
+} from 'react-bootstrap';
 
 const ContactsAccordion = ({ contacts }) => {
   const accordion = contacts.map((contact) => {
@@ -16,7 +24,7 @@ const ContactsAccordion = ({ contacts }) => {
           <Card.Body>
             <Jumbotron className='mx-0 my-0 px-1 py-1 text-center border rounded'>
               <Row>
-                <Col md={3} xs={12}>
+                <Col md={12} xs={12}>
                   {contact.image ? (
                     <CardImg alt={contact.fname} src={contact.image} />
                   ) : (
@@ -24,7 +32,7 @@ const ContactsAccordion = ({ contacts }) => {
                   )}
                 </Col>
 
-                <Col md={9} xs={12} style={{ fontSize: '1.2rem' }}>
+                <Col md={12} xs={12} style={{ fontSize: '1.2rem' }}>
                   <p className='mx-0 my-1'>
                     <span className='font-weight-bolder text-secondary'>
                       First Name
@@ -41,22 +49,56 @@ const ContactsAccordion = ({ contacts }) => {
                     {contact.lname.substring(1)}
                   </p>
                 </Col>
+
+                <Col md={12} xs={12}>
+                  <Form.Group controlId='exampleForm.SelectCustom'>
+                    <Form.Label
+                      className='font-weight-bolder text-secondary mb-0'
+                      style={{ fontSize: '1.2rem' }}
+                    >
+                      Phones
+                    </Form.Label>
+                    <Form.Control as='select' custom>
+                      {contact.phones.map((ph, ind) => (
+                        <option key={ind}>{ph.phone}</option>
+                      ))}
+                    </Form.Control>
+                  </Form.Group>
+                </Col>
+
+                <Col md={12} xs={12}>
+                  <Form.Group controlId='exampleForm.SelectCustom'>
+                    <Form.Label
+                      className='font-weight-bolder text-secondary mb-0'
+                      style={{ fontSize: '1.2rem' }}
+                    >
+                      Emails
+                    </Form.Label>
+                    <Form.Control as='select' custom>
+                      {contact.emails.map((em, ind) => (
+                        <option key={ind}>{em.email}</option>
+                      ))}
+                    </Form.Control>
+                  </Form.Group>
+                </Col>
               </Row>
             </Jumbotron>
             <Row className='my-3 text-center' style={{ fontSize: '1.2rem' }}>
               <Col className='my-2' md={6} xs={12}>
                 <Link
-                  className='text-success '
+                  className='text-primary '
                   to={`/api/contact/${contact.id}`}
                 >
-                  <i className='fas fa-pencil-alt fw'></i>{' '}
-                  <span className='text-secondary font-weight-bold'>Edit</span>
+                  <span className='btn btn-primary d-inline-block font-weight-bold'>
+                    &nbsp; <i className='fas fa-pencil-alt fw'></i> Edit &nbsp;
+                  </span>
                 </Link>
               </Col>
 
               <Col className='text-danger my-2' md={6} xs={12}>
-                <i className='fas fa-trash-alt fw'></i>{' '}
-                <span className='text-secondary font-weight-bold'>Remove</span>
+                <span className='btn btn-danger d-inline-block border rounded font-weight-bold'>
+                  <i className='fas fa-trash-alt fw'></i> Remove
+                </span>
               </Col>
             </Row>
           </Card.Body>
