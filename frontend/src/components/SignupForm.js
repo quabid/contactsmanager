@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
 const SignupForm = () => {
+  useEffect(() => {
+    document.title = 'Sign Up';
+  });
+
   return (
     <Form className="signup-form">
       <Form.Group controlId="fname">
@@ -18,7 +22,7 @@ const SignupForm = () => {
       </Form.Group>
 
       <Form.Group controlId="lname">
-        <Form.Label className="font-weight-bolder">First Name</Form.Label>
+        <Form.Label className="font-weight-bolder">Last Name</Form.Label>
         <Form.Control
           style={{ background: 'transparent' }}
           type="text"
@@ -59,7 +63,7 @@ const SignupForm = () => {
         <Form.Control
           style={{ background: 'transparent' }}
           type="password"
-          placeholder="Password"
+          placeholder="Confirm Password"
         />
       </Form.Group>
 

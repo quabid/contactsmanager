@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
 const SigninForm = () => {
+  useEffect(() => {
+    document.title = 'Sign In';
+  });
+
   return (
     <Form className="signin-form">
       <Form.Group controlId="email">
