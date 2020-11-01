@@ -86,9 +86,16 @@ const addressSchema = mongoose.Schema(
 );
 
 const contactSchema = mongoose.Schema({
-  username: {
+  fname: {
     type: String,
-    unique: true,
+    required: true,
+  },
+  lname: {
+    type: String,
+    required: true,
+  },
+  nname: {
+    type: String,
   },
   emails: [emailSchema],
   phones: [phoneSchema],

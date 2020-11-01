@@ -15,13 +15,13 @@ const Header = ({ branding }) => {
           <NavbarToggle aria-controls='basic-navbar-nav' />
           <NavbarCollapse id='basic-navbar-nav'>
             <Nav className='ml-auto'>
-              <LinkContainer to='/cart'>
+              <LinkContainer to='/auth/signup'>
                 <NavLink>
                   <i className='fas fa-users'></i> Sign Up
                 </NavLink>
               </LinkContainer>
 
-              <LinkContainer to='/signin'>
+              <LinkContainer to='/auth/signin'>
                 <NavLink>
                   <i className='fas fa-user'></i> Sign In
                 </NavLink>

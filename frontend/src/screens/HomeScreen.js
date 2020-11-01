@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const HomeScreen = () => {
-  return (
-    <div>
-      <h1 className='h1'>Home</h1>
-    </div>
-  );
+  useEffect(() => {
+    document.title = 'Home';
+  });
+
+  return <h1 className='h2'>Home</h1>;
 };
 
 export default HomeScreen;
