@@ -1,10 +1,11 @@
 import React from 'react';
+import SigninForm from '../components/SigninForm';
 
 const SigninScreen = () => {
   return (
-    <div>
-      <h1 className='h2'>Sign In</h1>
-    </div>
+    <>
+      <SigninForm />
+    </>
   );
 };
 
