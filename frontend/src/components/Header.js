@@ -7,23 +7,23 @@ import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';
 const Header = ({ branding }) => {
   return (
     <header>
-      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
-        <Container>
-          <LinkContainer to='/'>
-            <NavbarBrand>{branding}</NavbarBrand>
+      <Navbar bg="transparent" variant="dark" expand="lg" collapseOnSelect>
+        <Container fluid>
+          <LinkContainer to="/">
+            <NavbarBrand className="font-weight-bolder">{branding}</NavbarBrand>
           </LinkContainer>
-          <NavbarToggle aria-controls='basic-navbar-nav' />
-          <NavbarCollapse id='basic-navbar-nav'>
-            <Nav className='ml-auto'>
-              <LinkContainer to='/auth/signup'>
+          <NavbarToggle aria-controls="basic-navbar-nav" />
+          <NavbarCollapse id="basic-navbar-nav">
+            <Nav className="ml-auto">
+              <LinkContainer to="/auth/signup">
                 <NavLink>
-                  <i className='fas fa-users'></i> Sign Up
+                  <i className="fas fa-users"></i> Sign Up
                 </NavLink>
               </LinkContainer>
 
-              <LinkContainer to='/auth/signin'>
+              <LinkContainer to="/auth/signin">
                 <NavLink>
-                  <i className='fas fa-user'></i> Sign In
+                  <i className="fas fa-user"></i> Sign In
                 </NavLink>
               </LinkContainer>
             </Nav>
