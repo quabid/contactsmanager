@@ -1,12 +1,18 @@
 import express from 'express';
+import dotenv from 'dotenv';
+import connectDB from './config/db.js';
 import bodyParser from 'body-parser';
+import colors from 'colors';
 import cors from 'cors';
 import path from 'path';
 import { customAlphabet } from 'nanoid';
-import landing from './routes/landing.js';
-import api from './routes/api.js';
-import user from './routes/user.js';
+import landing from './routes/landingRouter.js';
+import contact from './routes/contactsRouter.js';
+import user from './routes/userRouter.js';
 import { serverStatus, serverAddress, serverPort } from './constants/index.js';
+
+dotenv.config();
+connectDB();
 
 const nanoid = customAlphabet('02468ouqtyminv*^#%`~[;>|\\', 13);
 
@@ -42,7 +48,7 @@ app.use(express.static(path.join('../', 'public')));
 
 // Routers
 app.use('/', landing);
-app.use('/api', api);
-app.use('/user', user);
+app.use('/api/contacts', contact);
+app.use('/api/users', user);
 
-app.listen(serverPort, serverAddress, serverStatus);
+app.listen(serverPort, serverStatus);

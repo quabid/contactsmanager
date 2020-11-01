@@ -2,7 +2,7 @@ import bunyan from 'bunyan';
 import colors from 'colors';
 import { stringify } from '../../custom_modules/ObjectUtils.js';
 import { log } from '../../custom_modules/Printer.js';
-import users from '../data/users_dev.js';
+import { users_dev } from '../data/users_dev.js';
 const logger = bunyan.createLogger({ name: 'api controller' });
 
 // @desc        Get contacts route
@@ -14,7 +14,7 @@ export const getContacts = (req, res) => {
     path: '/api/contacts',
     method: req.method,
     requestedUrl: `${req.url}`,
-    payload: stringify(users),
+    payload: stringify(users_dev),
   });
 };
 
@@ -23,7 +23,7 @@ export const getContacts = (req, res) => {
 // @access      Private
 export const getContact = (req, res) => {
   const id = req.params.id;
-  const user = users.find((x) => x.id == req.params.id);
+  const user = users_dev.find(x => x.id == req.params.id);
 
   logger.info(`Requested URL: ${req.url}/${id}`);
   log(user);
@@ -54,7 +54,7 @@ export const createContact = (req, res) => {
   const { fname, lname, email, phone, street, city, zipcode } = req.body;
   log(
     `Received data for new contact: ${fname}, ${lname}, ${email}, ${phone}, ${street} ${city} ${zipcode}`
-      .brightBlue.bold
+      .blue.bold
   );
 
   res.status(200).json({
@@ -69,8 +69,8 @@ export const createContact = (req, res) => {
 // @access      Private
 export const updateContact = (req, res) => {
   log(
-    `Received update data for existing contact: ${stringify(req.body)}`
-      .brightBlue.bold
+    `Received update data for existing contact: ${stringify(req.body)}`.blue
+      .bold
   );
 
   res.status(200).json({
@@ -86,7 +86,7 @@ export const updateContact = (req, res) => {
 export const deleteContact = (req, res) => {
   const id = req.params.id;
 
-  log(`Received contact id for deletion: ${id}`.brightBlue.bold);
+  log(`Received contact id for deletion: ${id}`.blue.bold);
 
   res.status(200).json({
     path: `/api/contacts/${id}`,

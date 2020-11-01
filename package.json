@@ -21,8 +21,10 @@
     "colors": "^1.4.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^5.10.9",
-    "nanoid": "^3.1.12",
+    "express-async-handler": "^1.1.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.11",
+    "nanoid": "^3.1.16",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0"
   },

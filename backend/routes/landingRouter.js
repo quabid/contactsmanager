@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import * as Landing from '../controllers/landing.js';
+import * as Landing from '../controllers/landingController.js';
 
 const landing = Router();
 

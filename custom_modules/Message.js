@@ -1,3 +1,4 @@
+// @ts-nocheck
 import colors from 'colors';
 import { log } from './Printer.js';
 
