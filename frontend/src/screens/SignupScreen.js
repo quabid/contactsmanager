@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import SignupForm from '../components/SignupForm';
 
 const SignupScreen = () => {
+  useEffect(() => {
+    document.title = 'Sign Up';
+  });
+
   return (
-    <div>
-      <h1 className='h2'>Sign Up</h1>
-    </div>
+    <>
+      <SignupForm />
+    </>
   );
 };
 

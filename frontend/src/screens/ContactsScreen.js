@@ -8,7 +8,8 @@ import { listContacts } from '../actions/ContactsActions';
 const ContactsScreen = () => {
   const dispatch = useDispatch();
 
-  const contactsList = useSelector((state) => state.contactsList);
+  // @ts-ignore
+  const contactsList = useSelector(state => state.contactsList);
   const { loading, error, contacts } = contactsList;
 
   useEffect(() => {
@@ -18,7 +19,7 @@ const ContactsScreen = () => {
   return loading ? (
     <Loader />
   ) : error ? (
-    <Message variant='danger'>{error}</Message>
+    <Message variant="danger">{error}</Message>
   ) : (
     <ContactsAccordion contacts={[...contacts]} />
   );
