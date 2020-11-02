@@ -47,12 +47,12 @@ app.use(cors());
 // Static Resources
 app.use(express.static(path.join('../', 'public')));
 
-app.use(errorHandler);
-// app.use(notFound);
-
 // Routers
 app.use('/', landing);
 app.use('/api/contacts', contact);
 app.use('/api/users', user);
+
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(serverPort, serverStatus);
