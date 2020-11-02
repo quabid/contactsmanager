@@ -11,6 +11,7 @@ const SignupForm = () => {
       <Form.Group controlId="fname">
         <Form.Label className="font-weight-bolder">First Name</Form.Label>
         <Form.Control
+          size="lg"
           style={{ background: 'transparent' }}
           type="text"
           placeholder="Enter first name"
@@ -24,6 +25,7 @@ const SignupForm = () => {
       <Form.Group controlId="lname">
         <Form.Label className="font-weight-bolder">Last Name</Form.Label>
         <Form.Control
+          size="lg"
           style={{ background: 'transparent' }}
           type="text"
           placeholder="Enter last name"
@@ -37,6 +39,7 @@ const SignupForm = () => {
       <Form.Group controlId="email">
         <Form.Label className="font-weight-bolder">Email address</Form.Label>
         <Form.Control
+          size="lg"
           style={{ background: 'transparent' }}
           type="email"
           placeholder="Enter email"
@@ -52,6 +55,7 @@ const SignupForm = () => {
       <Form.Group controlId="pwd1">
         <Form.Label className="font-weight-bolder">Password</Form.Label>
         <Form.Control
+          size="lg"
           style={{ background: 'transparent' }}
           type="password"
           placeholder="Password"
@@ -61,6 +65,7 @@ const SignupForm = () => {
       <Form.Group controlId="pwd2">
         <Form.Label className="font-weight-bolder">Confirm Password</Form.Label>
         <Form.Control
+          size="lg"
           style={{ background: 'transparent' }}
           type="password"
           placeholder="Confirm Password"

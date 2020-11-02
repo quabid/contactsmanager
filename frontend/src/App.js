@@ -19,7 +19,7 @@ const App = () => {
           <Route exact path="/api/contacts" component={ContactsScreen} />
           <Route exact path="/api/contact/:id" component={ContactScreen} />
           <Route exact path="/api/users/login" component={SigninScreen} />
-          <Route exact path="/api/users" component={SignupScreen} />
+          <Route exact path="/api/users/signup" component={SignupScreen} />
           <Route exact path="/about" component={About} />
         </Container>
         <video id="background-video" playsInline loop autoPlay={true} muted>
