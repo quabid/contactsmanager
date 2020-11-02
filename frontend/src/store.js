@@ -5,13 +5,21 @@ import {
   contactsListReducer,
   getContactReducer,
 } from './reducers/ContactsReducers';
+import { userLoginReducer } from './reducers/UserReducers';
 
 const reducer = combineReducers({
   contactsList: contactsListReducer,
   contactObject: getContactReducer,
+  userLogin: userLoginReducer,
 });
 
-const initState = {};
+const userInfoFromStorage = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo'))
+  : null;
+
+const initState = {
+  userLogin: { userInfo: userInfoFromStorage },
+};
 const middleware = [thunk];
 
 const store = createStore(
