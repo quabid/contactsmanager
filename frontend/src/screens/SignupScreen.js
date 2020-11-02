@@ -7,9 +7,9 @@ const SignupScreen = () => {
   });
 
   return (
-    <>
+    <div className='my-3'>
       <SignupForm />
-    </>
+    </div>
   );
 };
 
