@@ -17,6 +17,7 @@ const SigninForm = () => {
       <Form.Group controlId="email">
         <Form.Label className="font-weight-bolder">Email address</Form.Label>
         <Form.Control
+          size="lg"
           style={{ background: 'transparent' }}
           type="email"
           placeholder="Enter email"
@@ -30,6 +31,7 @@ const SigninForm = () => {
       <Form.Group controlId="password">
         <Form.Label className="font-weight-bolder">Password</Form.Label>
         <Form.Control
+          size="lg"
           style={{ background: 'transparent' }}
           type="password"
           placeholder="Password"
