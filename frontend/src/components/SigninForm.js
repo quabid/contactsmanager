@@ -24,7 +24,7 @@ const SigninForm = ({ location, history }) => {
   useEffect(() => {
     document.title = 'Sign In';
     if (userInfo) {
-      history.push(redirect);
+      history && history.push(redirect);
     }
   }, [history, userInfo, redirect]);
 

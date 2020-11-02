@@ -10,6 +10,7 @@ import landing from './routes/landingRouter.js';
 import contact from './routes/contactsRouter.js';
 import user from './routes/userRouter.js';
 import { serverStatus, serverAddress, serverPort } from './constants/index.js';
+import { errorHandler, notFound } from './middleware/ErrorMiddleware.js';
 
 dotenv.config();
 connectDB();
@@ -45,6 +46,9 @@ app.use(cors());
 
 // Static Resources
 app.use(express.static(path.join('../', 'public')));
+
+app.use(errorHandler);
+// app.use(notFound);
 
 // Routers
 app.use('/', landing);
