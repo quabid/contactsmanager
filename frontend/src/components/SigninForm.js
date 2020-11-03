@@ -12,14 +12,16 @@ const SigninForm = ({ location, history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const userLogin = useSelector((state) => state.userLogin);
+  // @ts-ignore
+  const userLogin = useSelector(state => state.userLogin);
   const { loading, error, userInfo } = userLogin;
 
-  const redirect = location
-    ? location.search
-      ? location.search.split('=')[1]
-      : '/'
-    : '/';
+  const redirect =
+    location !== undefined
+      ? location.search
+        ? location.search.split('=')[1]
+        : '/'
+      : '/';
 
   useEffect(() => {
     document.title = 'Sign In';
@@ -28,7 +30,7 @@ const SigninForm = ({ location, history }) => {
     }
   }, [history, userInfo, redirect]);
 
-  const submitHandler = (e) => {
+  const submitHandler = e => {
     e.preventDefault();
     // Dispatch
     console.log(
@@ -40,49 +42,50 @@ const SigninForm = ({ location, history }) => {
 
   return (
     <FormContainer>
-      <h1 className='h1'>Sign In</h1>
-      {error && <Message variant='danger'>{error}</Message>}
-      <Form onSubmit={submitHandler} className='signin-form my-3'>
-        <Form.Group controlId='email'>
-          <Form.Label className='font-weight-bolder'>Email address</Form.Label>
+      <h1 className="h1">Sign In</h1>
+      {error && <Message variant="danger">{error}</Message>}
+      {loading && <Loader />}
+      <Form onSubmit={submitHandler} className="signin-form my-3">
+        <Form.Group controlId="email">
+          <Form.Label className="font-weight-bolder">Email address</Form.Label>
           <Form.Control
-            className='text-white'
-            size='lg'
+            className="text-white"
+            size="lg"
             style={{ background: 'transparent', color: '#fff' }}
-            type='email'
+            type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder='Enter email'
+            onChange={e => setEmail(e.target.value)}
+            placeholder="Enter email"
           />
           <Form.Text
-            className='text-muted font-weight-bolder'
+            className="text-muted font-weight-bolder"
             style={{ fontSize: '1rem' }}
           ></Form.Text>
         </Form.Group>
 
-        <Form.Group controlId='password'>
-          <Form.Label className='font-weight-bolder'>Password</Form.Label>
+        <Form.Group controlId="password">
+          <Form.Label className="font-weight-bolder">Password</Form.Label>
           <Form.Control
-            className='text-white'
-            size='lg'
+            className="text-white"
+            size="lg"
             style={{ background: 'transparent' }}
-            type='password'
+            type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder='Password'
+            onChange={e => setPassword(e.target.value)}
+            placeholder="Password"
           />
         </Form.Group>
 
-        <Button variant='outline-primary' type='submit'>
+        <Button variant="outline-primary" type="submit">
           Submit
         </Button>
       </Form>
 
-      <Row className='py-3'>
+      <Row className="py-3">
         <Col xs={12} md={6}>
           New user?{' '}
           <Link
-            className='link'
+            className="link"
             to={redirect ? `/register?redirect=${redirect}` : '/register'}
           />
         </Col>
@@ -90,7 +93,7 @@ const SigninForm = ({ location, history }) => {
         <Col xs={12} md={6}>
           Forgot username or password?{' '}
           <Link
-            className='link'
+            className="link"
             to={redirect ? `/register?redirect=${redirect}` : '/register'}
           />
         </Col>
