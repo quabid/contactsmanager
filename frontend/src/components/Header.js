@@ -46,19 +46,11 @@ const Header = ({ branding }) => {
                   </LinkContainer>
                 </NavDropdown>
               ) : (
-                <>
-                  <LinkContainer to="/register">
-                    <NavLink>
-                      <i className="fas fa-users"></i> Sign Up
-                    </NavLink>
-                  </LinkContainer>
-
-                  <LinkContainer to="/login">
-                    <NavLink>
-                      <i className="fas fa-user"></i> Sign In
-                    </NavLink>
-                  </LinkContainer>
-                </>
+                <LinkContainer to="/login">
+                  <NavLink>
+                    <i className="fas fa-user"></i> Sign In
+                  </NavLink>
+                </LinkContainer>
               )}
             </Nav>
           </NavbarCollapse>

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
@@ -16,17 +16,12 @@ const SigninForm = ({ location, history }) => {
   const userLogin = useSelector(state => state.userLogin);
   const { loading, error, userInfo } = userLogin;
 
-  const redirect =
-    location !== undefined
-      ? location.search
-        ? location.search.split('=')[1]
-        : '/'
-      : '/';
+  const redirect = location.search ? location.search.split('=')[1] : '/';
 
   useEffect(() => {
     document.title = 'Sign In';
     if (userInfo) {
-      history && history.push(redirect);
+      history.push(redirect);
     }
   }, [history, userInfo, redirect]);
 
@@ -34,7 +29,7 @@ const SigninForm = ({ location, history }) => {
     e.preventDefault();
     // Dispatch
     console.log(
-      `\n\n\t\t\tDispatch to login: Email ${email} and Password ${password}`
+      `\n\n\t\t\tDispatching to login: Email ${email} and Password ${password}\n\n`
     );
 
     dispatch(login(email, password));
@@ -80,24 +75,6 @@ const SigninForm = ({ location, history }) => {
           Submit
         </Button>
       </Form>
-
-      <Row className="py-3">
-        <Col xs={12} md={6}>
-          New user?{' '}
-          <Link
-            className="link"
-            to={redirect ? `/register?redirect=${redirect}` : '/register'}
-          />
-        </Col>
-
-        <Col xs={12} md={6}>
-          Forgot username or password?{' '}
-          <Link
-            className="link"
-            to={redirect ? `/register?redirect=${redirect}` : '/register'}
-          />
-        </Col>
-      </Row>
     </FormContainer>
   );
 };
