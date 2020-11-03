@@ -74,9 +74,9 @@ export const authUser = asyncHandler(async (req, res) => {
       // @ts-ignore
       _id: user._id,
       // @ts-ignore
-      'First Name': user.fname,
+      fname: user.fname,
       // @ts-ignore
-      'Last Name': user.lname,
+      lname: user.lname,
       // @ts-ignore
       email: user.email,
       // @ts-ignore
