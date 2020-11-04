@@ -5,7 +5,7 @@ import colors from 'colors';
 import { users } from './data/users.js';
 import connectDB from './config/db.js';
 import User from './models/UserModel.js';
-import Contact from './models/ContactModel.js';
+// import Contact from './models/ContactModel.js';
 
 dotenv.config();
 connectDB();
@@ -13,7 +13,7 @@ connectDB();
 const importData = async () => {
   try {
     await User.deleteMany();
-    await Contact.deleteMany();
+    // await Contact.deleteMany();
 
     const createdUsers = await User.insertMany(users);
 
@@ -28,7 +28,7 @@ const importData = async () => {
 const destroyData = async () => {
   try {
     await User.deleteMany();
-    await Contact.deleteMany();
+    // await Contact.deleteMany();
 
     console.log(`Data Destroyed!`.bgBlack.green);
     process.exit();

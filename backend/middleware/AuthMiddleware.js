@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import { verifyToken } from '../../custom_modules/JwtMaker.js';
-import User from '../models/UserModel.js';
+import UserModel from '../models/UserModel.js';
 
 export const protect = asyncHandler(async (req, res, next) => {
   let token;
@@ -14,7 +14,7 @@ export const protect = asyncHandler(async (req, res, next) => {
       const decoded = verifyToken(token);
       console.log(decoded);
       // @ts-ignore
-      req.user = await User.findById(decoded.id).select('-password');
+      req.user = await UserModel.findById(decoded.id).select('-password');
     } catch (err) {
       console.clear();
       console.log(err.message);

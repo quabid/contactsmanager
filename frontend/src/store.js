@@ -5,12 +5,13 @@ import {
   contactsListReducer,
   getContactReducer,
 } from './reducers/ContactsReducers';
-import { userLoginReducer } from './reducers/UserReducers';
+import { userLoginReducer, userRegisterReducer } from './reducers/UserReducers';
 
 const reducer = combineReducers({
   contactsList: contactsListReducer,
   contactObject: getContactReducer,
   userLogin: userLoginReducer,
+  userRegister: userRegisterReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
