@@ -16,7 +16,7 @@ import { logout } from '../actions/UserActions';
 
 const Header = ({ branding }) => {
   const dispatch = useDispatch();
-  const userLogin = useSelector(state => state.userLogin);
+  const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   const logoutHandler = () => {
@@ -26,39 +26,31 @@ const Header = ({ branding }) => {
 
   return (
     <header>
-      <Navbar bg="transparent" variant="dark" expand="lg" collapseOnSelect>
+      <Navbar bg='transparent' variant='dark' expand='lg' collapseOnSelect>
         <Container fluid>
-          <LinkContainer to="/">
-            <NavbarBrand className="font-weight-bolder">{branding}</NavbarBrand>
+          <LinkContainer to='/'>
+            <NavbarBrand className='font-weight-bolder'>{branding}</NavbarBrand>
           </LinkContainer>
-          <NavbarToggle aria-controls="basic-navbar-nav" />
-          <NavbarCollapse id="basic-navbar-nav">
-            <Nav className="ml-auto">
+          <NavbarToggle aria-controls='basic-navbar-nav' />
+          <NavbarCollapse id='basic-navbar-nav'>
+            <Nav className='ml-auto'>
               {userInfo ? (
-                <NavDropdown title={userInfo.email} id="username">
-                  <LinkContainer to="/profile">
+                <NavDropdown title={userInfo.email} id='username'>
+                  <LinkContainer to='/profile'>
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer to="/logout">
+                  <LinkContainer to='/logout'>
                     <NavDropdown.Item onClick={logoutHandler}>
                       Logout
                     </NavDropdown.Item>
                   </LinkContainer>
                 </NavDropdown>
               ) : (
-                <>
-                  <LinkContainer to="/register">
-                    <NavLink>
-                      <i className="fas fa-users"></i> Sign Up
-                    </NavLink>
-                  </LinkContainer>
-
-                  <LinkContainer to="/login">
-                    <NavLink>
-                      <i className="fas fa-user"></i> Sign In
-                    </NavLink>
-                  </LinkContainer>
-                </>
+                <LinkContainer to='/login'>
+                  <NavLink>
+                    <i className='fas fa-user'></i> Sign In
+                  </NavLink>
+                </LinkContainer>
               )}
             </Nav>
           </NavbarCollapse>

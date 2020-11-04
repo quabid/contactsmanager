@@ -16,6 +16,24 @@
   cursor: pointer;
 }
 
+#signin-form {
+  position: absolute;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  display: inline-grid;
+  justify-content: center;
+  transform: translate3d(0, -200%, 0);
+  transition: transfrom 320ms ease-in-out;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  z-index: 1;
+}
+
+#signin-form.hide {
+  transform: translate3d(0, 50%, 0);
+}
+
 @media screen and (max-width: 930px) {
   .signup-form {
     transform: translateY(1%);

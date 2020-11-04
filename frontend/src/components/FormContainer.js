@@ -5,9 +5,7 @@ const FormContainer = ({ children }) => {
   return (
     <Container fluid>
       <Row className='justify-content-center'>
-        <Col xs={12} md={6}>
-          {children}
-        </Col>
+        <Col xs={12}>{children}</Col>
       </Row>
     </Container>
   );
