@@ -9,8 +9,8 @@ const logger = bunyan.createLogger({ name: 'api controller' });
 // @route       GET /api/contacts
 // @access      Private
 export const getContacts = (req, res) => {
-  logger.info(`Requested URL: ${req.url}`);
-  res.status(200).json({
+  logger.info(`getContacts route: /api/contacts, Requested URL: ${req.url}`);
+  res.json({
     path: '/api/contacts',
     method: req.method,
     requestedUrl: `${req.url}`,
