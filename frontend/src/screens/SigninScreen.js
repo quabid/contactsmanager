@@ -24,12 +24,12 @@ const SigninScreen = ({ location, history }) => {
           </Link>
         </Col>
 
-        <Col xs={12} md={6}>
+        <Col xs={12}>
           <Link
             className="link"
             to={redirect ? `/register?redirect=${redirect}` : '/register'}
           >
-            Forgot username or password?
+            Need help with logging in?
           </Link>
         </Col>
       </Row>

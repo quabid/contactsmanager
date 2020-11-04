@@ -28,10 +28,6 @@ const SigninForm = ({ location, history }) => {
   const submitHandler = e => {
     e.preventDefault();
     // Dispatch
-    console.log(
-      `\n\n\t\t\tDispatching to login: Email ${email} and Password ${password}\n\n`
-    );
-
     dispatch(login(email, password));
   };
 
