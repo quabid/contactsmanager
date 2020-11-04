@@ -9,26 +9,6 @@ import FormContainer from '../components/FormContainer';
 import { login } from '../actions/UserActions';
 
 const SigninScreen = ({ location, history }) => {
-  const redirect = location.search ? location.search.split('=')[1] : '/';
-
-  return (
-    <Container fluid>
-      <Row>
-        <Col xs={12}>
-          <SigninForm location={location} history={history} />
-        </Col>
-      </Row>
-
-      <Row className="py-3">
-        <Col xs={12}>
-          <Link
-            className="link"
-            to={redirect ? `/register?redirect=${redirect}` : '/register'}
-          >
-
-
-
-const SigninScreen = ({ location, history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
@@ -97,14 +77,9 @@ const SigninScreen = ({ location, history }) => {
       <Row className='py-3 font-weight-bold border justify-content-center'>
         <Col>
           <Link className='link text-white border m-auto' to={'/register'}>
-<<<<<<< HEAD
             New User
           </Link>
 
-=======
-New User</Link>
-         
->>>>>>> 494b94e48282ecee5abee0d5b2895c51e4936c1b
           <Link className='link text-white border m-auto' to={'/register'}>
             Need help?
           </Link>
