@@ -1,8 +1,7 @@
 import bunyan from 'bunyan';
+import stringify from 'fast-safe-stringify';
 import colors from 'colors';
-import { stringify } from '../../custom_modules/ObjectUtils.js';
 import { log } from '../../custom_modules/Printer.js';
-import { contacts } from '../data/contacts.js';
 const logger = bunyan.createLogger({ name: 'api controller' });
 
 // @desc        Get contacts route
@@ -14,7 +13,6 @@ export const getContacts = (req, res) => {
     path: '/api/contacts',
     method: req.method,
     requestedUrl: `${req.url}`,
-    payload: stringify(contacts),
   });
 };
 

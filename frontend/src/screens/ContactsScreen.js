@@ -21,7 +21,7 @@ const ContactsScreen = () => {
   ) : error ? (
     <Message variant="danger">{error}</Message>
   ) : (
-    <ContactsAccordion contacts={[...contacts]} />
+    <ContactsAccordion contacts={contacts} />
   );
 };
 
