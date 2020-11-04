@@ -1,20 +1,20 @@
 import bunyan from 'bunyan';
+import stringify from 'fast-safe-stringify';
 import colors from 'colors';
-import { stringify } from '../../custom_modules/ObjectUtils.js';
 import { log } from '../../custom_modules/Printer.js';
-import { contacts } from '../data/contacts.js';
-const logger = bunyan.createLogger({ name: 'api controller' });
+
+
 
 // @desc        Get contacts route
 // @route       GET /api/contacts
 // @access      Private
 export const getContacts = (req, res) => {
-  logger.info(`Requested URL: ${req.url}`);
-  res.status(200).json({
+  logger.info(`getContacts route: /api/contacts, Requested URL: ${req.url}`);
+  res.json({
     path: '/api/contacts',
     method: req.method,
     requestedUrl: `${req.url}`,
-    payload: stringify(contacts),
+
   });
 };
 
@@ -23,16 +23,16 @@ export const getContacts = (req, res) => {
 // @access      Private
 export const getContact = (req, res) => {
   const id = req.params.id;
-  const user = contacts.find((x) => x.id == req.params.id);
+
 
   logger.info(`Requested URL: ${req.url}/${id}`);
-  log(user);
+  log(contact);
 
   res.status(200).json({
     path: `/api/contact/${id}`,
     method: req.method,
     requestedUrl: `${req.url}`,
-    payload: stringify(user),
+    payload: stringify(contact),
   });
 };
 

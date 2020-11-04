@@ -77,11 +77,9 @@ const SigninScreen = ({ location, history }) => {
       <Row className='py-3 font-weight-bold border justify-content-center'>
         <Col>
           <Link className='link text-white border m-auto' to={'/register'}>
-            New user?{' '}
+            New User
           </Link>
-        </Col>
 
-        <Col>
           <Link className='link text-white border m-auto' to={'/register'}>
             Need help?
           </Link>

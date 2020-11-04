@@ -1,75 +1,14 @@
 import mongoose from 'mongoose';
 
-const geoSchema = new mongoose.Schema({
-  latitude: {
-    type: String,
-  },
-  longitude: {
-    type: String,
-  },
-});
 
-const emailSchema = new mongoose.Schema(
-  {
-    type: {
-      type: String,
-      required: true,
-      default: 'home',
-    },
-    address: {
-      type: String,
-      required: true,
-    },
-  },
-  {
-    timestamps: true,
-  }
-);
 
-const phoneSchema = new mongoose.Schema(
-  {
-    type: {
-      type: String,
-      required: true,
-      default: 'home',
-    },
-    number: {
-      type: String,
-      required: true,
-    },
-  },
-  {
-    timestamps: true,
-  }
-);
-
-const addressSchema = new mongoose.Schema(
-  {
-    type: {
-      type: String,
-      required: true,
-      default: 'home',
-    },
-    street: {
-      type: String,
-      required: true,
-    },
-    city: {
-      type: String,
-      required: true,
-    },
-    zipcode: {
-      type: String,
-      required: true,
-    },
-    locations: [geoSchema],
-  },
-  {
-    timestamps: true,
-  }
-);
 
 const contactSchema = new mongoose.Schema({
+owner: {
+    type: mongoose.SchemaType.ObjectId,
+    ref: 'User',
+    require: true,
+  },
   fname: {
     type: String,
     required: true,
@@ -81,22 +20,59 @@ const contactSchema = new mongoose.Schema({
   nname: {
     type: String,
   },
-  emails: [emailSchema],
-  phones: [phoneSchema],
-  addresses: [addressSchema],
+  emails: [
+    {
+      category: {
+        type: String,
+        require: true,
+      },
+      email: {
+        type: String,
+        require: true,
+        unique: true,
+      },
+    },
+  ],
+  phones: [
+    {
+      category: {
+        type: String,
+        require: true,
+      },
+      phone: {
+        type: String,
+        require: true,
+        unique: true,
+      },
+    },
+  ],
+  addresses: [
+    {
+      category: {
+        type: String,
+        require: true,
+      },
+      address: {
+        street: {
+          type: String,
+        },
+        city: {
+          type: String,
+        },
+        zipcode: {
+          type: String,
+        },
+      },
+      geo: {
+        type: String,
+      },
+    },
+  ],
 });
 
 contactSchema.methods.findByEmail = function (email) {
   const contact = this.toObject();
   if (contact.emails.find((x) => x.email == email) != undefined) {
-    return contact;
-  }
-  return null;
-};
-
-contactSchema.methods.findByPhone = function (phone) {
-  const contact = this.toObject();
-  if (contact.phones.find((x) => x.phone == phone) != undefined) {
     return contact;
   }
   return null;

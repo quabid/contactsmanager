@@ -35,16 +35,18 @@ const Header = ({ branding }) => {
           <NavbarCollapse id='basic-navbar-nav'>
             <Nav className='ml-auto'>
               {userInfo ? (
-                <NavDropdown title={userInfo.email} id='username'>
-                  <LinkContainer to='/profile'>
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to='/logout'>
-                    <NavDropdown.Item onClick={logoutHandler}>
-                      Logout
-                    </NavDropdown.Item>
-                  </LinkContainer>
-                </NavDropdown>
+                <LinkContainer to='/profile'>
+                  <NavDropdown title={userInfo.email} id='username'>
+                    <LinkContainer to='/profile'>
+                      <NavDropdown.Item>Profile</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to='/logout'>
+                      <NavDropdown.Item onClick={logoutHandler}>
+                        Logout
+                      </NavDropdown.Item>
+                    </LinkContainer>
+                  </NavDropdown>
+                </LinkContainer>
               ) : (
                 <LinkContainer to='/login'>
                   <NavLink>
