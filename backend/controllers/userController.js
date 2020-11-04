@@ -25,11 +25,40 @@ export const getUserDashboard = asyncHandler(async (req, res) => {
 // @route       PUT /api/users/profile
 // @access      Private
 export const updateUserProfile = asyncHandler(async (req, res) => {
-  logger.info(
-    `updateUserProfile Route: PUT /api/users/profile vs Requested URL: ${req.url}`
-  );
-  console.log(req.body);
-  res.status(200).json(req.body);
+  // @ts-ignore
+  const user = User.findById(req.user._id);
+
+  if (user) {
+    // @ts-ignore
+    user.fname = req.body.fname || user.fname;
+    // @ts-ignore
+    user.lname = req.body.lname || user.lname;
+    // @ts-ignore
+    user.email = req.body.email || user.email;
+
+    if (req.body.password) {
+      // @ts-ignore
+      user.password = req.body.password;
+    }
+
+    // @ts-ignore
+    const updatedUser = await user.save();
+
+    res.json({
+      // @ts-ignore
+      _id: updatedUser._id,
+      // @ts-ignore
+      fname: updatedUser.fname,
+      // @ts-ignore
+      lname: updatedUser.lname,
+      // @ts-ignore
+      email: updatedUser.email,
+      token: generateToken(updatedUser._id),
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
 });
 
 // @desc        Get user profile
@@ -46,7 +75,9 @@ export const getUserProfile = asyncHandler(async (req, res) => {
     res.status(200).json({
       _id: user._id,
       // @ts-ignore
-      name: user.name,
+      fname: user.fname,
+      // @ts-ignore
+      lname: user.lname,
       // @ts-ignore
       email: user.email,
       // @ts-ignore
