@@ -4,6 +4,7 @@ const contactSchema = new mongoose.Schema({
   owner: {
     type: mongoose.SchemaType.ObjectId,
     ref: 'User',
+    require: true,
   },
   fname: {
     type: String,
@@ -20,9 +21,12 @@ const contactSchema = new mongoose.Schema({
     {
       category: {
         type: String,
+        require: true,
       },
       email: {
         type: String,
+        require: true,
+        unique: true,
       },
     },
   ],
@@ -30,9 +34,12 @@ const contactSchema = new mongoose.Schema({
     {
       category: {
         type: String,
+        require: true,
       },
       phone: {
         type: String,
+        require: true,
+        unique: true,
       },
     },
   ],
@@ -40,6 +47,7 @@ const contactSchema = new mongoose.Schema({
     {
       category: {
         type: String,
+        require: true,
       },
       address: {
         street: {
@@ -62,14 +70,6 @@ const contactSchema = new mongoose.Schema({
 contactSchema.methods.findByEmail = function (email) {
   const contact = this.toObject();
   if (contact.emails.find(x => x.email == email) != undefined) {
-    return contact;
-  }
-  return null;
-};
-
-contactSchema.methods.findByPhone = function (phone) {
-  const contact = this.toObject();
-  if (contact.phones.find(x => x.phone == phone) != undefined) {
     return contact;
   }
   return null;
