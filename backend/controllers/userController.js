@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import bunyan from 'bunyan';
 const logger = bunyan.createLogger({ name: 'User Controller' });
-import User from '../models/UserModel.js';
+import UserModel from '../models/UserModel.js';
 import { generateToken } from '../../custom_modules/index.js';
 
 import * as Msg from '../../custom_modules/Message.js';
@@ -25,8 +25,11 @@ export const getUserDashboard = asyncHandler(async (req, res) => {
 // @route       PUT /api/users/profile
 // @access      Private
 export const updateUserProfile = asyncHandler(async (req, res) => {
+  logger.info(
+    `updateUserProfile Route: PUT /api/users/profile vs Requested URL: ${req.url}`
+  );
   // @ts-ignore
-  const user = User.findById(req.user._id);
+  const user = await UserModel.findById(req.user._id);
 
   if (user) {
     // @ts-ignore
@@ -69,7 +72,7 @@ export const getUserProfile = asyncHandler(async (req, res) => {
     `getUserProfile Route: GET /api/users/profile vs Requested URL: ${req.url}`
   );
   // @ts-ignore
-  const user = await User.findById(req.user._id);
+  const user = await UserModel.findById(req.user._id);
 
   if (user) {
     res.status(200).json({
@@ -97,7 +100,7 @@ export const authUser = asyncHandler(async (req, res) => {
   logger.info(`authUser Route: /api/users/login vs Requested URL: ${req.url}`);
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email: `${email}` });
+  const user = await UserModel.findOne({ email: `${email}` });
 
   // @ts-ignore
   if (user && (await user.matchPassword(password))) {
@@ -127,14 +130,14 @@ export const registerUser = asyncHandler(async (req, res) => {
   logger.info(`registerUser Route: /api/users vs Requested URL: ${req.url}`);
   const { fname, lname, email, password } = req.body;
 
-  const userExists = await User.findOne({ email: `${email}` });
+  const userExists = await UserModel.findOne({ email: `${email}` });
 
   if (userExists) {
     res.status(400);
     throw new Error('User already exists');
   }
 
-  const user = await User.create({
+  const user = await UserModel.create({
     fname,
     lname,
     email,
