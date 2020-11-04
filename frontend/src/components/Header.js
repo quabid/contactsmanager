@@ -35,7 +35,11 @@ const Header = ({ branding }) => {
           <NavbarCollapse id="basic-navbar-nav">
             <Nav className="ml-auto">
               {userInfo ? (
-                <NavDropdown title={userInfo.email} id="username">
+                <NavDropdown
+                  className="font-weight-bolder"
+                  title={userInfo.email}
+                  id="username"
+                >
                   <LinkContainer to="/profile">
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
