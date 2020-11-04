@@ -76,7 +76,6 @@ export const getUserProfile = asyncHandler(async (req, res) => {
 
   if (user) {
     res.status(200).json({
-      _id: user._id,
       // @ts-ignore
       fname: user.fname,
       // @ts-ignore
