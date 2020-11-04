@@ -103,7 +103,7 @@ export const authUser = asyncHandler(async (req, res) => {
 
   // @ts-ignore
   if (user && (await user.matchPassword(password))) {
-    res.status(200).json({
+    res.json({
       // @ts-ignore
       _id: user._id,
       // @ts-ignore

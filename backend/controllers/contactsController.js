@@ -2,7 +2,8 @@ import bunyan from 'bunyan';
 import stringify from 'fast-safe-stringify';
 import colors from 'colors';
 import { log } from '../../custom_modules/Printer.js';
-const logger = bunyan.createLogger({ name: 'api controller' });
+
+
 
 // @desc        Get contacts route
 // @route       GET /api/contacts
@@ -13,6 +14,7 @@ export const getContacts = (req, res) => {
     path: '/api/contacts',
     method: req.method,
     requestedUrl: `${req.url}`,
+
   });
 };
 
@@ -21,7 +23,7 @@ export const getContacts = (req, res) => {
 // @access      Private
 export const getContact = (req, res) => {
   const id = req.params.id;
-  const contact = contacts.find(x => x.id == req.params.id);
+
 
   logger.info(`Requested URL: ${req.url}/${id}`);
   log(contact);

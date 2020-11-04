@@ -1,7 +1,10 @@
 import mongoose from 'mongoose';
 
+
+
+
 const contactSchema = new mongoose.Schema({
-  owner: {
+owner: {
     type: mongoose.SchemaType.ObjectId,
     ref: 'User',
     require: true,
@@ -69,7 +72,7 @@ const contactSchema = new mongoose.Schema({
 
 contactSchema.methods.findByEmail = function (email) {
   const contact = this.toObject();
-  if (contact.emails.find(x => x.email == email) != undefined) {
+  if (contact.emails.find((x) => x.email == email) != undefined) {
     return contact;
   }
   return null;

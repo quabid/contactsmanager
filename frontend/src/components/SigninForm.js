@@ -13,10 +13,12 @@ const SigninForm = ({ location, history }) => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   // @ts-ignore
-  const userLogin = useSelector(state => state.userLogin);
+  const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
 
+
   const redirect = location.search ? location.search.split('=')[1] : '/';
+
 
   useEffect(() => {
     document.title = 'Sign In';
@@ -25,49 +27,51 @@ const SigninForm = ({ location, history }) => {
     }
   }, [history, userInfo, redirect]);
 
-  const submitHandler = e => {
+  const submitHandler = (e) => {
     e.preventDefault();
-    // Dispatch
     dispatch(login(email, password));
+    setEmail('');
+    setPassword('');
   };
 
   return (
     <FormContainer>
-      <h1 className="h1">Sign In</h1>
-      {error && <Message variant="danger">{error}</Message>}
+      <h1 className='h1'>Sign In</h1>
+      {error && <Message variant='danger'>{error}</Message>}
       {loading && <Loader />}
-      <Form onSubmit={submitHandler} className="signin-form my-3">
-        <Form.Group controlId="email">
-          <Form.Label className="font-weight-bolder">Email address</Form.Label>
+
+      <Form onSubmit={submitHandler} className='signin-form my-5'>
+        <Form.Group controlId='email'>
+          <Form.Label className='font-weight-bolder'>Email address</Form.Label>
           <Form.Control
-            className="text-white"
-            size="lg"
+            className='text-white'
+            size='lg'
             style={{ background: 'transparent', color: '#fff' }}
-            type="email"
+            type='email'
             value={email}
-            onChange={e => setEmail(e.target.value)}
-            placeholder="Enter email"
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder='Enter email'
           />
           <Form.Text
-            className="text-muted font-weight-bolder"
+            className='text-muted font-weight-bolder'
             style={{ fontSize: '1rem' }}
           ></Form.Text>
         </Form.Group>
 
-        <Form.Group controlId="password">
-          <Form.Label className="font-weight-bolder">Password</Form.Label>
+        <Form.Group controlId='password'>
+          <Form.Label className='font-weight-bolder'>Password</Form.Label>
           <Form.Control
-            className="text-white"
-            size="lg"
+            className='text-white'
+            size='lg'
             style={{ background: 'transparent' }}
-            type="password"
+            type='password'
             value={password}
-            onChange={e => setPassword(e.target.value)}
-            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder='Password'
           />
         </Form.Group>
 
-        <Button variant="outline-primary" type="submit">
+        <Button variant='outline-primary' type='submit'>
           Submit
         </Button>
       </Form>

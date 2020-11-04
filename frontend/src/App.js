@@ -7,6 +7,7 @@ import ContactsScreen from './screens/ContactsScreen';
 import ContactScreen from './screens/ContactScreen';
 import SigninScreen from './screens/SigninScreen';
 import SignupScreen from './screens/SignupScreen';
+import ProfileScreen from './screens/ProfileScreen';
 import About from './components/About';
 
 const App = () => {
@@ -16,11 +17,12 @@ const App = () => {
         <Header branding='Contact Manager' />
         <Container style={{ marginTop: '5%' }} fluid>
           <Route exact path='/' component={HomeScreen} />
-          <Route exact path='/contacts' component={ContactsScreen} />
-          <Route exact path='/contact/:id' component={ContactScreen} />
-          <Route exact path='/login' component={SigninScreen} />
-          <Route exact path='/register' component={SignupScreen} />
-          <Route exact path='/about' component={About} />
+          <Route path='/contacts' component={ContactsScreen} />
+          <Route path='/contact/:id' component={ContactScreen} />
+          <Route path='/register' component={SignupScreen} />
+          <Route path='/profile' component={ProfileScreen} />
+          <Route path='/login' component={SigninScreen} />
+          <Route path='/about' component={About} />
         </Container>
       </Router>
       <video id='background-video' playsInline loop autoPlay={true} muted>
