@@ -12,9 +12,10 @@ import {
   USER_REGISTER_SUCCESS,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
+  USER_UPDATE_PROFILE_FAIL,
 } from '../constants/UserActionTypes';
 
-export const login = (email, password) => async (dispatch) => {
+export const login = (email, password) => async dispatch => {
   try {
     dispatch({
       type: USER_LOGIN_REQUEST,
@@ -50,12 +51,12 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
-export const logout = () => (dispatch) => {
+export const logout = () => dispatch => {
   localStorage.removeItem('userInfo');
   dispatch({ type: USER_LOGOUT });
 };
 
-export const register = (fname, lname, email, password) => async (dispatch) => {
+export const register = (fname, lname, email, password) => async dispatch => {
   try {
     dispatch({
       type: USER_REGISTER_REQUEST,
@@ -90,7 +91,7 @@ export const register = (fname, lname, email, password) => async (dispatch) => {
   }
 };
 
-export const getUserDetails = (id) => async (dispatch, getState) => {
+export const getUserDetails = id => async (dispatch, getState) => {
   try {
     dispatch({
       type: USER_DETAILS_REQUEST,
@@ -127,7 +128,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
   }
 };
 
-export const updateUserProfile = (user) => async (dispatch, getState) => {
+export const updateUserProfile = user => async (dispatch, getState) => {
   try {
     dispatch({
       type: USER_UPDATE_PROFILE_REQUEST,
@@ -144,7 +145,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await Axios.put(`/api/users/profile/${id}`, user, config);
+    const { data } = await Axios.put(`/api/users/profile`, user, config);
 
     // console.log(`Data Received: ${JSON.stringify(data)}`);
 
