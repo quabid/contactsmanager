@@ -4,10 +4,9 @@ import * as UserController from '../controllers/userController.js';
 
 const user = Router();
 
-user
-  .route('/profile/:id')
-  .get(protect, UserController.getUserProfile)
-  .put(protect, UserController.updateUserProfile);
+user.route('/profile/:id').get(protect, UserController.getUserProfile);
+
+user.route('/profile').put(protect, UserController.updateUserProfile);
 
 user.route('/dashboard').get(protect, admin, UserController.getUserDashboard);
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-
+import { useSelector, useDispatch } from 'react-redux';
 import { Form, Card, Row, Col, Button } from 'react-bootstrap';
+import { updateUserProfile } from '../actions/UserActions';
 
 const UserProfile = ({ userDetail }) => {
   const [firstName, setFirstName] = useState('');
