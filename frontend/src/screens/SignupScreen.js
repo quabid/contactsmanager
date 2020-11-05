@@ -1,11 +1,17 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Col } from 'react-bootstrap';
 import SignupForm from '../components/SignupForm';
 
 export const SigninLink = () => (
-  <Link className='link text-white m-auto' to={'/login'}>
-    Sign In
-  </Link>
+  <Col xs={12}>
+    <Link
+      className='link text-white text-center font-weight-bolder d-inline-block mx-auto'
+      to={'/login'}
+    >
+      Sign In
+    </Link>
+  </Col>
 );
 
 const SignupScreen = ({ location, history }) => {

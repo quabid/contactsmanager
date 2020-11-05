@@ -2,18 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from '../components/Loader';
 import UserProfile from '../components/UserProfile';
-import { Row } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { SigninLink } from './SignupScreen';
 import { getUserDetails } from '../actions/UserActions';
 
 const ErrorMessage = ({ children }) => {
   return (
-    <div
-      className='border border-danger text-danger text-center font-weight-boller'
-      style={{ fontSize: '2.9rem' }}
-    >
-      {children}
-    </div>
+    <Row justify-content-center>
+      <Col xs={12}>
+        <div
+          className='text-danger text-center font-weight-boller'
+          style={{
+            fontSize: '2.9rem',
+            borderRadius: '10px',
+          }}
+        >
+          {children}
+        </div>
+      </Col>
+    </Row>
   );
 };
 
@@ -37,7 +44,7 @@ const ProfileScreen = ({ history, location }) => {
   }, [dispatch]);
 
   return errMsg ? (
-    <ErrorMessage>Not Authorized, no token</ErrorMessage>
+    <ErrorMessage>Not Authorized</ErrorMessage>
   ) : loading ? (
     <Loader />
   ) : error ? (
