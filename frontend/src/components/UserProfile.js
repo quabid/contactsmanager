@@ -32,11 +32,11 @@ const UserProfile = ({ userDetail }) => {
               className='font-weight-bolder text-white text-center'
               style={{ background: 'transparent', fontSize: '2rem' }}
             >
-              {userDetail.fname.substring(0, 1).toUpperCase() +
-                userDetail.fname.substring(1) +
+              {firstName.substring(0, 1).toUpperCase() +
+                firstName.substring(1) +
                 ' ' +
-                userDetail.lname.substring(0, 1).toUpperCase() +
-                userDetail.lname.substring(1)}
+                lastName.substring(0, 1).toUpperCase() +
+                lastName.substring(1)}
             </Card.Title>
           </Col>
           <Col className='text-center' xs={12}>
