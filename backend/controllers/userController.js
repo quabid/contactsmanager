@@ -71,11 +71,14 @@ export const getUserProfile = asyncHandler(async (req, res) => {
   logger.info(
     `getUserProfile Route: GET /api/users/profile vs Requested URL: ${req.url}`
   );
+
+  const id = req.params.id || 'No ID found';
+  console.log(`Received User ID: ${id}`);
   // @ts-ignore
   const user = await UserModel.findById(req.user._id);
 
   if (user) {
-    res.status(200).json({
+    res.json({
       // @ts-ignore
       fname: user.fname,
       // @ts-ignore

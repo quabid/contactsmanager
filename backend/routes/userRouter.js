@@ -1,18 +1,18 @@
 import { Router } from 'express';
-import { protect } from '../middleware/AuthMiddleware.js';
-import * as UserRoute from '../controllers/userController.js';
+import { protect, admin } from '../middleware/AuthMiddleware.js';
+import * as UserController from '../controllers/userController.js';
 
 const user = Router();
 
 user
-  .route('/profile')
-  .get(protect, UserRoute.getUserProfile)
-  .put(protect, UserRoute.updateUserProfile);
+  .route('/profile/:id')
+  .get(protect, UserController.getUserProfile)
+  .put(protect, UserController.updateUserProfile);
 
-user.route('/dashboard').get(protect, UserRoute.getUserDashboard);
+user.route('/dashboard').get(protect, admin, UserController.getUserDashboard);
 
-user.route('/login').post(UserRoute.authUser);
+user.route('/login').post(UserController.authUser);
 
-user.route('/').post(UserRoute.registerUser);
+user.route('/').post(UserController.registerUser);
 
 export default user;

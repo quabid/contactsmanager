@@ -16,9 +16,7 @@ const SigninForm = ({ location, history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
 
-
   const redirect = location.search ? location.search.split('=')[1] : '/';
-
 
   useEffect(() => {
     document.title = 'Sign In';
@@ -52,10 +50,6 @@ const SigninForm = ({ location, history }) => {
             onChange={(e) => setEmail(e.target.value)}
             placeholder='Enter email'
           />
-          <Form.Text
-            className='text-muted font-weight-bolder'
-            style={{ fontSize: '1rem' }}
-          ></Form.Text>
         </Form.Group>
 
         <Form.Group controlId='password'>

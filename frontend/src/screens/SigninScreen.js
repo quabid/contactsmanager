@@ -8,6 +8,18 @@ import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
 import { login } from '../actions/UserActions';
 
+export const RegisterLink = () => (
+  <Link className='link text-white mx-3' to={'/register'}>
+    New User
+  </Link>
+);
+
+export const HelpLink = () => (
+  <Link className='link text-white m-auto' to={'/register'}>
+    Need help?
+  </Link>
+);
+
 const SigninScreen = ({ location, history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -74,15 +86,11 @@ const SigninScreen = ({ location, history }) => {
         </Button>
       </Form>
 
-      <Row className='py-3 font-weight-bold border justify-content-center'>
+      <Row className='py-3 font-weight-bold justify-content-center'>
         <Col>
-          <Link className='link text-white border m-auto' to={'/register'}>
-            New User
-          </Link>
+          <RegisterLink />
 
-          <Link className='link text-white border m-auto' to={'/register'}>
-            Need help?
-          </Link>
+          <HelpLink />
         </Col>
       </Row>
     </FormContainer>
