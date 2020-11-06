@@ -1,21 +1,26 @@
 import * as ContactsConsts from '../constants/ContactsActionTypes';
 import axios from 'axios';
 
-export const listContacts = () => async dispatch => {
+export const listContacts = () => async (dispatch, getState) => {
   try {
     dispatch({ type: ContactsConsts.LIST_CONTACTS_REQUEST });
 
-    const { data } = await axios.get('/api/contacts');
+    const {
+      userLogin: { userInfo },
+    } = getState();
 
-    console.log('data: ' + data);
-    console.log(`${JSON.stringify(data)}`);
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get('/api/contacts', config);
 
     dispatch({
       type: ContactsConsts.LIST_CONTACTS_SUCCESS,
-      payload: [
-        { fname: 'william', lname: 'williams', id: '55' },
-        { fname: 'brook', lname: 'sexxy', id: '42' },
-      ],
+      payload: JSON.parse(data.contacts),
     });
   } catch (err) {
     dispatch({
@@ -41,6 +46,38 @@ export const getContact = id => async dispatch => {
   } catch (err) {
     dispatch({
       type: ContactsConsts.GET_CONTACT_FAILED,
+      payload:
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message,
+    });
+  }
+};
+
+export const createContact = contact => async (dispatch, getState) => {
+  try {
+    dispatch({ type: ContactsConsts.CREATE_CONTACT_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.post('/api/contacts', contact, config);
+
+    dispatch({
+      type: ContactsConsts.CREATE_CONTACT_SUCCESS,
+      payload: data,
+    });
+  } catch (err) {
+    dispatch({
+      type: ContactsConsts.CREATE_CONTACT_FAIL,
       payload:
         err.response && err.response.data.message
           ? err.response.data.message

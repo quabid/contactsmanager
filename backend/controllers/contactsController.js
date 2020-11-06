@@ -1,22 +1,29 @@
+import asyncHandler from 'express-async-handler';
 import bunyan from 'bunyan';
 import stringify from 'fast-safe-stringify';
 import colors from 'colors';
 import { log } from '../../custom_modules/Printer.js';
-
-
+import Contacts from '../models/ContactModel.js';
+import Contact from '../models/ContactModel.js';
+const logger = bunyan.createLogger({ name: 'Contacts Controller' });
 
 // @desc        Get contacts route
 // @route       GET /api/contacts
 // @access      Private
-export const getContacts = (req, res) => {
-  logger.info(`getContacts route: /api/contacts, Requested URL: ${req.url}`);
-  res.json({
-    path: '/api/contacts',
-    method: req.method,
-    requestedUrl: `${req.url}`,
+export const getContacts = asyncHandler(async (req, res) => {
+  logger.info(
+    `Route: getContacts, URL: /api/contacts, Requested URL: ${req.url}`
+  );
 
+  // @ts-ignore
+  const contacts = await Contacts.find({ owner: req.user._id }).populate(
+    'owner'
+  );
+
+  res.json({
+    contacts: contacts ? stringify(contacts) : null,
   });
-};
+});
 
 // @desc        Get contact route
 // @route       GET /api/contacts/:id
@@ -24,9 +31,7 @@ export const getContacts = (req, res) => {
 export const getContact = (req, res) => {
   const id = req.params.id;
 
-
   logger.info(`Requested URL: ${req.url}/${id}`);
-  log(contact);
 
   res.status(200).json({
     path: `/api/contact/${id}`,
@@ -50,19 +55,54 @@ export const getIndex = (req, res) => {
 // @desc        Create contact route
 // @route       POST /api/contacts
 // @access      Private
-export const createContact = (req, res) => {
-  const { fname, lname, email, phone, street, city, zipcode } = req.body;
+export const createContact = asyncHandler(async (req, res) => {
+  const { fname, lname, nname, email, phone, street, city, zipcode } = req.body;
   log(
     `Received data for new contact: ${fname}, ${lname}, ${email}, ${phone}, ${street} ${city} ${zipcode}`
       .blue.bold
   );
 
-  res.status(200).json({
-    path: `/api/contacts`,
-    method: req.method,
-    requestedUrl: req.url,
+  const newContact = new Contact({
+    // @ts-ignore
+    owner: req.user,
+    fname,
+    lname,
+    emails: [
+      {
+        category: 'home',
+        email: email,
+      },
+    ],
+    nname: nname || '',
+    phones: [
+      {
+        category: 'home',
+        phone: phone,
+      },
+    ],
+    addresses: [
+      {
+        category: 'home',
+        address: {
+          street,
+          city,
+          zipcode,
+        },
+      },
+    ],
   });
-};
+
+  const contact = newContact.save();
+
+  if (contact) {
+    res.json({
+      contact: stringify(contact),
+    });
+  } else {
+    console.log(`\n\tNew contact failed`);
+    throw new Error('New contact creation failed');
+  }
+});
 
 // @desc        Update contact route
 // @route       PUT /api/contacts/id
