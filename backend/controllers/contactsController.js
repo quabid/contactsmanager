@@ -28,18 +28,22 @@ export const getContacts = asyncHandler(async (req, res) => {
 // @desc        Get contact route
 // @route       GET /api/contacts/:id
 // @access      Private
-export const getContact = (req, res) => {
+export const getContact = asyncHandler(async (req, res) => {
   const id = req.params.id;
 
-  logger.info(`Requested URL: ${req.url}/${id}`);
+  logger.info(`Route: /api/contact/id Requested URL: ${req.url}/${id}`);
 
-  res.status(200).json({
-    path: `/api/contact/${id}`,
-    method: req.method,
-    requestedUrl: `${req.url}`,
-    payload: stringify(contact),
+  const contact = Contacts.findOne({
+    $and: { _id: `${id}`, owner: `${req.user._id}` },
   });
-};
+
+  if (contact) {
+    res.json({ contact });
+  } else {
+    res.status(404);
+    throw new Error('Contact not found');
+  }
+});
 
 // @desc        Get api index route
 // @route       GET /api

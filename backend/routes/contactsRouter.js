@@ -8,8 +8,8 @@ api.route('/').get(protect, Api.getContacts).post(protect, Api.createContact);
 
 api
   .route('/contact/:id')
-  .get(Api.getContact)
-  .put(Api.updateContact)
-  .delete(Api.deleteContact);
+  .get(protect, Api.getContact)
+  .put(protect, Api.updateContact)
+  .delete(protect, Api.deleteContact);
 
 export default api;

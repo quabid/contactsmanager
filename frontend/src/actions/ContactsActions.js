@@ -33,11 +33,22 @@ export const listContacts = () => async (dispatch, getState) => {
   }
 };
 
-export const getContact = id => async dispatch => {
+export const getContact = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ContactsConsts.GET_CONTACT_REQUEST });
 
-    const { data } = await axios.get(`/api/contact/${id}`);
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/contact/${id}`, config);
 
     dispatch({
       type: ContactsConsts.GET_CONTACT_SUCCESS,
@@ -54,7 +65,7 @@ export const getContact = id => async dispatch => {
   }
 };
 
-export const createContact = contact => async (dispatch, getState) => {
+export const createContact = (contact) => async (dispatch, getState) => {
   try {
     dispatch({ type: ContactsConsts.CREATE_CONTACT_REQUEST });
 
