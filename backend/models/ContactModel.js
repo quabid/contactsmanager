@@ -1,13 +1,11 @@
 import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
 
-
-
-
-const contactSchema = new mongoose.Schema({
-owner: {
-    type: mongoose.SchemaType.ObjectId,
+const contactSchema = new Schema({
+  owner: {
+    type: Schema.Types.ObjectId,
     ref: 'User',
-    require: true,
+    required: true,
   },
   fname: {
     type: String,
@@ -24,11 +22,9 @@ owner: {
     {
       category: {
         type: String,
-        require: true,
       },
       email: {
         type: String,
-        require: true,
         unique: true,
       },
     },
@@ -37,11 +33,11 @@ owner: {
     {
       category: {
         type: String,
-        require: true,
+        required: true,
       },
       phone: {
         type: String,
-        require: true,
+        required: true,
         unique: true,
       },
     },
@@ -50,7 +46,7 @@ owner: {
     {
       category: {
         type: String,
-        require: true,
+        required: true,
       },
       address: {
         street: {
@@ -72,7 +68,7 @@ owner: {
 
 contactSchema.methods.findByEmail = function (email) {
   const contact = this.toObject();
-  if (contact.emails.find((x) => x.email == email) != undefined) {
+  if (contact.emails.find(x => x.email == email) != undefined) {
     return contact;
   }
   return null;

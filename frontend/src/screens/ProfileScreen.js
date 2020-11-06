@@ -11,7 +11,7 @@ const ErrorMessage = ({ children }) => {
     <Row justify-content-center>
       <Col xs={12}>
         <div
-          className='text-danger text-center font-weight-boller'
+          className="text-danger text-center font-weight-boller"
           style={{
             fontSize: '2.9rem',
             borderRadius: '10px',
@@ -28,7 +28,8 @@ const ProfileScreen = ({ history, location }) => {
   const [errMsg, setErrMsg] = useState(false);
   const dispatch = useDispatch();
 
-  const userDetails = useSelector((state) => state.userDetails);
+  // @ts-ignore
+  const userDetails = useSelector(state => state.userDetails);
   const { loading, error, userDetail } = userDetails;
 
   useEffect(() => {
@@ -48,9 +49,9 @@ const ProfileScreen = ({ history, location }) => {
   ) : loading ? (
     <Loader />
   ) : error ? (
-    <div className='bg-transparent  mx-4 text-center'>
-      <h2 className='text-center text-danger'>{error}</h2>
-      <Row className='lead'>
+    <div className="bg-transparent  mx-4 text-center">
+      <h2 className="text-center text-danger">{error}</h2>
+      <Row className="lead">
         <SigninLink />
       </Row>
     </div>

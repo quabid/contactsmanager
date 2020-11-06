@@ -1,11 +1,10 @@
 import { Router } from 'express';
+import { protect, admin } from '../middleware/AuthMiddleware.js';
 import * as Api from '../controllers/contactsController.js';
 
 const api = Router();
 
-api.route('/').get(Api.getIndex);
-
-api.route('/contacts').get(Api.getContacts).post(Api.createContact);
+api.route('/').get(protect, Api.getContacts).post(protect, Api.createContact);
 
 api
   .route('/contact/:id')
