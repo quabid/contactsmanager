@@ -14,10 +14,11 @@ const ContactCard = ({ id }) => {
   const [nickName, setNickName] = useState('');
   const [image, setImage] = useState('');
   const [email, setEmail] = useState([]);
-  const [phone, setPhons] = useState([]);
+  const [phone, setPhones] = useState([]);
   const [address, setAddress] = useState([]);
 
-  const contactObject = useSelector((state) => state.contactObject);
+  // @ts-ignore
+  const contactObject = useSelector(state => state.contactObject);
   const { loading, error, contact } = contactObject;
   const emails = [];
   const phones = [];
@@ -42,14 +43,14 @@ const ContactCard = ({ id }) => {
   return loading ? (
     <Loader />
   ) : error ? (
-    <Message variant='danger'>{error}</Message>
+    <Message variant="danger">{error}</Message>
   ) : (
     <Card style={{ background: 'transparent' }}>
       <span
-        className='font-weight-bolder text-white mx-3 my-3'
+        className="font-weight-bolder text-white mx-3 my-3"
         style={{ fontSize: '1.1rem' }}
       >
-        <Link to='/contacts'>Go Back</Link>
+        <Link to="/contacts">Go Back</Link>
       </span>
       <Card.Header></Card.Header>
       <Card.Body></Card.Body>

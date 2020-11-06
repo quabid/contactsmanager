@@ -34,11 +34,12 @@ export const getContact = asyncHandler(async (req, res) => {
   logger.info(`Route: /api/contact/id Requested URL: ${req.url}/${id}`);
 
   const contact = Contacts.findOne({
+    // @ts-ignore
     $and: { _id: `${id}`, owner: `${req.user._id}` },
   });
 
   if (contact) {
-    res.json({ contact });
+    res.json({ contact: stringify(contact) });
   } else {
     res.status(404);
     throw new Error('Contact not found');

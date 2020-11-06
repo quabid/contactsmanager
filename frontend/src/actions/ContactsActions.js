@@ -33,7 +33,7 @@ export const listContacts = () => async (dispatch, getState) => {
   }
 };
 
-export const getContact = (id) => async (dispatch, getState) => {
+export const getContact = id => async (dispatch, getState) => {
   try {
     dispatch({ type: ContactsConsts.GET_CONTACT_REQUEST });
 
@@ -48,11 +48,11 @@ export const getContact = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/contact/${id}`, config);
+    const { data } = await axios.get(`/api/contacts/${id}`, config);
 
     dispatch({
       type: ContactsConsts.GET_CONTACT_SUCCESS,
-      payload: JSON.parse(data.payload),
+      payload: data.payload,
     });
   } catch (err) {
     dispatch({
@@ -65,7 +65,7 @@ export const getContact = (id) => async (dispatch, getState) => {
   }
 };
 
-export const createContact = (contact) => async (dispatch, getState) => {
+export const createContact = contact => async (dispatch, getState) => {
   try {
     dispatch({ type: ContactsConsts.CREATE_CONTACT_REQUEST });
 
