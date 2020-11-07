@@ -36,7 +36,6 @@ const ContactCard = ({ id }) => {
   const addAddress = (category, city, street, zipcode) => {
     _addresses.push({ category, city, street, zipcode });
   };
-
   const handleOnChange = e => {
     console.log(`Item changed to ${e.target.value}`);
   };
@@ -82,9 +81,9 @@ const ContactCard = ({ id }) => {
 
   const listEmails = () => {
     return emails
-      ? emails.map(email => {
+      ? emails.map((email, index) => {
           return (
-            <Form.Group>
+            <Form.Group key={index}>
               <h3 className="h3 text-center">Emails</h3>
               <Form.Label
                 className="font-weight-bolder"
@@ -101,7 +100,7 @@ const ContactCard = ({ id }) => {
                 value={email.email}
                 style={{ background: 'transparent' }}
                 className="text-white"
-                onChange={handleOnChange}
+                onChange={e => console.log(e.target.value)}
               />
             </Form.Group>
           );
@@ -111,9 +110,9 @@ const ContactCard = ({ id }) => {
 
   const listPhones = () => {
     return phones
-      ? phones.map(phone => {
+      ? phones.map((phone, index) => {
           return (
-            <Form.Group>
+            <Form.Group key={index}>
               <h3 className="h3 text-center">Phones</h3>
               <Form.Label
                 className="font-weight-bolder"
@@ -130,7 +129,7 @@ const ContactCard = ({ id }) => {
                 value={phone.phone}
                 style={{ background: 'transparent' }}
                 className="text-white"
-                onChange={handleOnChange}
+                onChange={e => console.log(e.target.value)}
               />
             </Form.Group>
           );
@@ -161,10 +160,8 @@ const ContactCard = ({ id }) => {
           </Col>
 
           <Col xs={12} md={9}>
-            <Form>
-              {listEmails()}
-              {listPhones()}
-            </Form>
+            {listEmails()}
+            {listPhones()}
           </Col>
         </Row>
       </Form>
