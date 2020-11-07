@@ -1,6 +1,4 @@
 import React from 'react';
-import Message from '../components/Message';
-import Loader from '../components/Loader';
 import ContactCard from '../components/ContactCard';
 
 const ContactScreen = ({ match }) => {
