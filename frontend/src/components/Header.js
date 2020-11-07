@@ -40,16 +40,16 @@ const Header = ({ branding }) => {
                     <LinkContainer to="/profile">
                       <NavDropdown.Item>Profile</NavDropdown.Item>
                     </LinkContainer>
-                    <LinkContainer to="/logout">
-                      <NavDropdown.Item onClick={logoutHandler}>
-                        Logout
-                      </NavDropdown.Item>
-                    </LinkContainer>
                     <LinkContainer to="/contacts">
                       <NavDropdown.Item>My Contacts</NavDropdown.Item>
                     </LinkContainer>
                     <LinkContainer to="/newcontact">
                       <NavDropdown.Item>Add Contact</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to="/logout">
+                      <NavDropdown.Item onClick={logoutHandler}>
+                        Logout
+                      </NavDropdown.Item>
                     </LinkContainer>
                   </NavDropdown>
                 </LinkContainer>

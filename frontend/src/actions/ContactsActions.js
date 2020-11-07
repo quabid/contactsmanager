@@ -52,7 +52,7 @@ export const getContact = id => async (dispatch, getState) => {
 
     dispatch({
       type: ContactsConsts.GET_CONTACT_SUCCESS,
-      payload: data.payload,
+      payload: data.contact[0],
     });
   } catch (err) {
     dispatch({
