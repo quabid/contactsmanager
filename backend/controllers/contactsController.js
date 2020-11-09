@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import bunyan from 'bunyan';
 import stringify from 'fast-safe-stringify';
+// @ts-ignore
 import colors from 'colors';
 import { log } from '../../custom_modules/Printer.js';
 import Contacts from '../models/ContactModel.js';
@@ -33,12 +34,15 @@ export const getContact = asyncHandler(async (req, res) => {
 
   logger.info(`Route: /api/contact/id Requested URL: ${req.url}/${id}`);
 
-  const contact = Contacts.findOne({
-    $and: { _id: `${id}`, owner: `${req.user._id}` },
+  const contact = await Contacts.find({
+    $and: [{ _id: `${id}` }, { owner: `${req.user._id}` }],
   });
 
   if (contact) {
-    res.json({ contact });
+    res.json({
+      // @ts-ignore
+      contact: contact,
+    });
   } else {
     res.status(404);
     throw new Error('Contact not found');

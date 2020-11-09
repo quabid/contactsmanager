@@ -1,15 +1,18 @@
 import { Router } from 'express';
 import { protect, admin } from '../middleware/AuthMiddleware.js';
-import * as Api from '../controllers/contactsController.js';
+import * as ContactsApi from '../controllers/contactsController.js';
 
-const api = Router();
+const contacts = Router();
 
-api.route('/').get(protect, Api.getContacts).post(protect, Api.createContact);
+contacts
+  .route('/')
+  .get(protect, ContactsApi.getContacts)
+  .post(protect, ContactsApi.createContact);
 
-api
-  .route('/contact/:id')
-  .get(protect, Api.getContact)
-  .put(protect, Api.updateContact)
-  .delete(protect, Api.deleteContact);
+contacts
+  .route('/:id')
+  .get(protect, ContactsApi.getContact)
+  .put(protect, ContactsApi.updateContact)
+  .delete(protect, ContactsApi.deleteContact);
 
-export default api;
+export default contacts;
