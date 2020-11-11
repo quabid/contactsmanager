@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Accordion,
@@ -10,28 +10,41 @@ import {
   Form,
 } from 'react-bootstrap';
 import PhoneFormGroup from '../components/PhoneFormGroup';
-
 const ContactsAccordion = ({ contacts }) => {
-  const accordion = contacts.map((contact) => {
+  const [emails, setEmails] = useState(null);
+
+  useEffect(() => {
+    setEmails([]);
+    return () => setEmails(null);
+  }, [setEmails]);
+
+  const saveChanges = obj => {
+    console.log(
+      `${obj.type} changed category to ${obj.category} and number to ${obj.value}`
+    );
+    emails.push({ type: obj.type, category: obj.category, value: obj.value });
+  };
+
+  const accordion = contacts.map(contact => {
     return (
       <Card
         key={contact._id}
-        className='text-white'
+        className="text-white"
         style={{ background: 'transparent', fontSize: '1.9rem' }}
       >
         <Accordion.Toggle as={Card.Header} eventKey={contact._id}>
-          <span className='font-weight-bolder text-white'>
+          <span className="font-weight-bolder text-white">
             {contact.fname.substring(0, 1).toUpperCase()}
             {contact.fname.substring(1)}
           </span>
         </Accordion.Toggle>
         <Accordion.Collapse eventKey={contact._id}>
           <Card.Body
-            className='text-white'
+            className="text-white"
             style={{ background: 'transparent', fontSize: '1.9rem' }}
           >
             <Jumbotron
-              className='mx-0 my-0 px-1 py-1 text-center text-white border rounded'
+              className="mx-0 my-0 px-1 py-1 text-center text-white border rounded"
               style={{ background: 'transparent', fontSize: '1rem' }}
             >
               <Row>
@@ -39,12 +52,12 @@ const ContactsAccordion = ({ contacts }) => {
                   {contact.image ? (
                     <CardImg alt={contact.fname} src={contact.image} />
                   ) : (
-                    <i className='fas fa-user fa-4x fw'></i>
+                    <i className="fas fa-user fa-8x fw"></i>
                   )}
                 </Col>
 
                 <Col xs={12} style={{ fontSize: '1.2rem' }}>
-                  <p className='mx-0 my-1'>
+                  <p className="mx-0 my-1">
                     {contact.fname.substring(0, 1).toUpperCase()}
                     {contact.fname.substring(1)}{' '}
                     {contact.lname.substring(0, 1).toUpperCase()}
@@ -54,39 +67,19 @@ const ContactsAccordion = ({ contacts }) => {
 
                 <Col xs={12} style={{ fontSize: '1.2rem' }}>
                   <Form>
+                    <h2 className="h5 text-left">Phones</h2>
                     {contact.phones.map((phone, index) => (
                       <PhoneFormGroup
                         key={index + 1}
                         phone={phone.phone}
                         category={phone.category}
+                        dropData={saveChanges}
                       />
                     ))}
                   </Form>
                 </Col>
               </Row>
             </Jumbotron>
-            <Row className='my-3 text-center' style={{ fontSize: '1.2rem' }}>
-              <Col className='my-2' md={6} xs={12}>
-                <Link to={`/contact/${contact._id}`}>
-                  <span className='btn btn-outline-primary d-inline-block font-weight-bold'>
-                    &nbsp;{' '}
-                    <i
-                      className='fas fa-pencil-alt fw'
-                      style={{
-                        background: 'transparent',
-                      }}
-                    ></i>{' '}
-                    Edit &nbsp;
-                  </span>
-                </Link>
-              </Col>
-
-              <Col className='my-2' md={6} xs={12}>
-                <span className='btn btn-outline-danger d-inline-block border border-danger rounded font-weight-bold'>
-                  <i className='fas fa-trash-alt fw'></i> Remove
-                </span>
-              </Col>
-            </Row>
           </Card.Body>
         </Accordion.Collapse>
       </Card>

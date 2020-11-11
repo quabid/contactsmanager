@@ -17,7 +17,7 @@ const connectDB = async () => {
       useNewUrlParser: true,
       useCreateIndex: true,
     });
-    dbConnectionLogger.info(`DB Connected: ${conn.connection.host}`);
+    dbConnectionLogger.info(`DB Connected at ${conn.connection.host}`);
   } catch (err) {
     dbConnectionErrLogger.error(`DB Connection Error: ${err.message}`);
     process.exit(121);
