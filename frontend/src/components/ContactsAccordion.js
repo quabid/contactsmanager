@@ -27,13 +27,15 @@ const ContactsAccordion = ({ contacts }) => {
   useEffect(() => {
     setEmails([]);
     setPhones([]);
-    return () => setEmails(null);
-    setPhones([]);
-    setFirstName('');
-    setLastName('');
+    return () => {
+      setEmails(null);
+      setPhones([]);
+      setFirstName('');
+      setLastName('');
+    };
   }, [setEmails, setPhones, setFirstName, setLastName]);
 
-  const saveChanges = (obj) => {
+  const saveChanges = obj => {
     switch (obj.type) {
       case 'email':
         logger.info(
@@ -64,29 +66,32 @@ const ContactsAccordion = ({ contacts }) => {
         setFirstName(obj.fname);
         setLastName(obj.lname);
         break;
+
+      default:
+        return;
     }
   };
 
-  const accordion = contacts.map((contact) => {
+  const accordion = contacts.map(contact => {
     return (
       <Card
         key={contact._id}
-        className='text-white my-1'
+        className="text-white my-1"
         style={{ background: 'transparent', fontSize: '1.9rem' }}
       >
         <Accordion.Toggle as={Card.Header} eventKey={contact._id}>
-          <span className='font-weight-bolder text-white'>
+          <span className="font-weight-bolder text-white">
             {contact.fname.substring(0, 1).toUpperCase()}
             {contact.fname.substring(1)}
           </span>
         </Accordion.Toggle>
         <Accordion.Collapse eventKey={contact._id}>
           <Card.Body
-            className='text-white border border-white'
+            className="text-white border border-white"
             style={{ background: 'transparent', fontSize: '1.9rem' }}
           >
             <Jumbotron
-              className='mx-0 my-0 px-1 py-1 text-center text-white'
+              className="mx-0 my-0 px-1 py-1 text-center text-white"
               style={{ background: 'transparent', fontSize: '1rem' }}
             >
               <Row>
@@ -94,12 +99,12 @@ const ContactsAccordion = ({ contacts }) => {
                   {contact.image ? (
                     <CardImg alt={contact.fname} src={contact.image} />
                   ) : (
-                    <i className='fas fa-user fa-8x fw'></i>
+                    <i className="fas fa-user fa-8x fw"></i>
                   )}
                 </Col>
 
                 <Col xs={12} style={{ fontSize: '1.2rem' }}>
-                  <p className='mx-0 my-1'>
+                  <p className="mx-0 my-1">
                     {contact.fname.substring(0, 1).toUpperCase()}
                     {contact.fname.substring(1)}{' '}
                     {contact.lname.substring(0, 1).toUpperCase()}
@@ -111,7 +116,7 @@ const ContactsAccordion = ({ contacts }) => {
                   <Form>
                     <Row>
                       <Col>
-                        <h2 className='h5 text-left'>Name</h2>
+                        <h2 className="h5 text-left">Name</h2>
                         <NameFormGroup
                           firstName={contact.fname}
                           lastName={contact.lname}
@@ -121,7 +126,7 @@ const ContactsAccordion = ({ contacts }) => {
                     </Row>
                     <Row>
                       <Col>
-                        <h2 className='h5 text-left'>Phones</h2>
+                        <h2 className="h5 text-left">Phones</h2>
                         {contact.phones.map((phone, index) => (
                           <PhoneFormGroup
                             key={index + 1}
@@ -134,7 +139,7 @@ const ContactsAccordion = ({ contacts }) => {
                     </Row>
                     <Row>
                       <Col>
-                        <h2 className='h5 text-left'>Emails</h2>
+                        <h2 className="h5 text-left">Emails</h2>
                         {contact.emails.map((email, index) => (
                           <EmailFormGroup
                             key={index + 1}
