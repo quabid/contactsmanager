@@ -9,22 +9,78 @@ import {
   CardImg,
   Form,
 } from 'react-bootstrap';
+import bunyan from 'bunyan';
 import PhoneFormGroup from '../components/PhoneFormGroup';
 import EmailFormGroup from '../components/EmailFormGroup';
 import NameFormGroup from '../components/NameFormGroup';
+
+const logger = bunyan.createLogger({
+  name: 'ContactsAcccordion Component',
+  /* streams: [
+    {
+      level: 'info',
+      stream: process.stdout, // log INFO and above to stdout
+    },
+    {
+      level: 'error',
+      stream: process.stderr,
+      //   path: '/var/tmp/myapp-error.log', // log ERROR and above to a file
+    },
+    {
+      level: 'warn',
+      stream: process.stdout,
+      //   path: '/var/tmp/myapp-error.log', // log ERROR and above to a file
+    },
+  ], */
+});
+
 const ContactsAccordion = ({ contacts }) => {
   const [emails, setEmails] = useState(null);
+  const [phones, setPhones] = useState(null);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   useEffect(() => {
     setEmails([]);
+    setPhones([]);
     return () => setEmails(null);
-  }, [setEmails]);
+    setPhones([]);
+    setFirstName('');
+    setLastName('');
+  }, [setEmails, setPhones, setFirstName, setLastName]);
 
   const saveChanges = (obj) => {
-    console.log(
-      `${obj.type} changed category to ${obj.category} and ${obj.type} to ${obj.value}`
-    );
-    emails.push({ type: obj.type, category: obj.category, value: obj.value });
+    switch (obj.type) {
+      case 'email':
+        logger.info(
+          `${obj.type} changed category to ${obj.category} and value to ${obj.value}`
+        );
+        emails.push({
+          type: obj.type,
+          category: obj.category,
+          value: obj.value,
+        });
+        break;
+
+      case 'phone':
+        logger.info(
+          `${obj.type} changed category to ${obj.category} and value to ${obj.value}`
+        );
+        phones.push({
+          type: obj.type,
+          category: obj.category,
+          value: obj.value,
+        });
+        break;
+
+      case 'name':
+        logger.info(
+          `${obj.type} changed ${obj.type} to ${obj.fname} and ${obj.lname}`
+        );
+        setFirstName(obj.fname);
+        setLastName(obj.lname);
+        break;
+    }
   };
 
   const accordion = contacts.map((contact) => {
@@ -71,10 +127,11 @@ const ContactsAccordion = ({ contacts }) => {
                   <Form>
                     <Row>
                       <Col>
+                        <h2 className='h5 text-left'>Name</h2>
                         <NameFormGroup
-                          key={contact._id}
                           firstName={contact.fname}
                           lastName={contact.lname}
+                          dropData={saveChanges}
                         />
                       </Col>
                     </Row>
