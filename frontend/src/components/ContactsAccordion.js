@@ -13,6 +13,7 @@ import bunyan from 'bunyan';
 import PhoneFormGroup from '../components/PhoneFormGroup';
 import EmailFormGroup from '../components/EmailFormGroup';
 import NameFormGroup from '../components/NameFormGroup';
+import AddressFormGroup from './AddressFormGroup';
 
 const logger = bunyan.createLogger({
   name: 'ContactsAcccordion Component',
@@ -21,19 +22,22 @@ const logger = bunyan.createLogger({
 const ContactsAccordion = ({ contacts }) => {
   const [emails, setEmails] = useState(null);
   const [phones, setPhones] = useState(null);
+  const [address, setAddresses] = useState(null);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
   useEffect(() => {
     setEmails([]);
     setPhones([]);
+    setAddresses([]);
     return () => {
       setEmails(null);
-      setPhones([]);
+      setPhones(null);
+      setAddresses(null);
       setFirstName('');
       setLastName('');
     };
-  }, [setEmails, setPhones, setFirstName, setLastName]);
+  }, [setEmails, setPhones, setFirstName, setLastName, setAddresses]);
 
   const saveChanges = obj => {
     switch (obj.type) {
@@ -145,6 +149,19 @@ const ContactsAccordion = ({ contacts }) => {
                             key={index + 1}
                             email={email.email}
                             category={email.category}
+                            dropData={saveChanges}
+                          />
+                        ))}
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>
+                        <h2 className="h5 text-left">Addresses</h2>
+                        {contact.addresses.map((address, index) => (
+                          <AddressFormGroup
+                            key={index + 1}
+                            address={address.address}
+                            category={address.category}
                             dropData={saveChanges}
                           />
                         ))}

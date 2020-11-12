@@ -2,14 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { Form, Dropdown, Row, Col, Container } from 'react-bootstrap';
 import { OPTIONS } from '../constants/DropdownConstants';
 
-const EmailFormGroup = ({ category, email, dropData }) => {
-  const [_email, setEmail] = useState('');
+const AddressFormGroup = ({ category, address, dropData }) => {
+  const [street, setStreet] = useState('');
+  const [city, setCity] = useState('');
+  const [zipcode, setZipcode] = useState('');
   const [_category, setCategory] = useState('');
 
   useEffect(() => {
     setCategory(_category || category);
-    setEmail(_email || email);
-  }, [category, email, _category, _email]);
+    setStreet(street || address.street);
+    setCity(city || address.city);
+    setZipcode(zipcode || address.zipcode);
+  }, [
+    category,
+    address.street,
+    _category,
+    address.city,
+    address.zipcode,
+    street,
+    city,
+    zipcode,
+  ]);
 
   return (
     <Form.Group controlId="exampleForm.SelectCustom">
@@ -24,9 +37,9 @@ const EmailFormGroup = ({ category, email, dropData }) => {
                 <Dropdown.Toggle
                   variant="outline-success"
                   size="sm"
-                  id="emailCategory"
+                  id="addressCategory"
                 >
-                  {_category || 'Email Category'}
+                  {_category || 'Address Category'}
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
@@ -61,18 +74,53 @@ const EmailFormGroup = ({ category, email, dropData }) => {
               style={{ background: 'transparent', color: '#fff' }}
               size="lg"
               as="input"
-              type="email"
-              value={_email}
+              type="text"
+              value={street}
               onChange={e => {
-                console.log(`Phone number changed to: ${e.target.value}`);
-                setEmail(e.target.value);
+                console.log(`Street changed to: ${e.target.value}`);
+                setStreet(e.target.value);
               }}
             />
           </Col>
+
+          <Col xs={12}>
+            <Form.Control
+              className="my-2 mx-auto"
+              style={{ background: 'transparent', color: '#fff' }}
+              size="lg"
+              as="input"
+              type="text"
+              value={city}
+              onChange={e => {
+                console.log(`City changed to: ${e.target.value}`);
+                setCity(e.target.value);
+              }}
+            />
+          </Col>
+
+          <Col xs={12}>
+            <Form.Control
+              className="my-2 mx-auto"
+              style={{ background: 'transparent', color: '#fff' }}
+              size="lg"
+              as="input"
+              type="zipcode"
+              value={zipcode}
+              onChange={e => {
+                console.log(`Zipcode changed to: ${e.target.value}`);
+                setZipcode(e.target.value);
+              }}
+            />
+          </Col>
+
           <Col className="my-3" xs={12} md={6}>
             <span
               onClick={() => {
-                dropData({ category: _category, type: 'email', value: _email });
+                dropData({
+                  category: _category,
+                  type: 'address',
+                  value: { street, city, zipcode },
+                });
               }}
               className="btn btn-outline-primary d-inline-block border border-primary rounded font-weight-bold"
             >
@@ -91,4 +139,4 @@ const EmailFormGroup = ({ category, email, dropData }) => {
   );
 };
 
-export default EmailFormGroup;
+export default AddressFormGroup;
