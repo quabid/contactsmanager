@@ -1,32 +1,93 @@
-import React from 'react';
-import { Form, Row, Col, Dropdown } from 'react-bootstrap';
-// import { OPTIONS } from '../constants/DropdownConstants';
+import React, { useState, useEffect } from 'react';
+import { Form, Dropdown, Row, Col, Container } from 'react-bootstrap';
+import { OPTIONS } from '../constants/DropdownConstants';
 
-const EmailFormGroup = ({ category, phone }) => {
+const PhoneFormGroup = ({ category, email, dropData }) => {
+  const [_email, setEmail] = useState('');
+  const [_category, setCategory] = useState('');
+
+  useEffect(() => {
+    setCategory(_category || category);
+    setEmail(_email || email);
+  }, [category, email, _category, _email]);
+
   return (
-    <Form.Group controlId='phone'>
-      <Form.Label
-        className='font-weight-bolder text-white mb-0'
-        style={{ fontSize: '1.2rem' }}
-      >
+    <Form.Group controlId="exampleForm.SelectCustom">
+      <Container fluid>
         <Row>
-          <Col>
-            <Dropdown>
-              <Dropdown.Toggle
-                variant='outline-success'
-                size='sm'
-                id='emailCategory'
-              >
-                Email Category
-              </Dropdown.Toggle>
+          <Col xs={12}>
+            <Form.Label
+              className="font-weight-bolder text-white my-2"
+              style={{ fontSize: '1.2rem' }}
+            >
+              <Dropdown>
+                <Dropdown.Toggle
+                  variant="outline-success"
+                  size="sm"
+                  id="phoneCategory"
+                >
+                  {_category || 'Phone Category'}
+                </Dropdown.Toggle>
 
-              <Dropdown.Menu>{}</Dropdown.Menu>
-            </Dropdown>
+                <Dropdown.Menu>
+                  {OPTIONS.map((option, index) => (
+                    <Dropdown.Item
+                      key={index + 22}
+                      id={option}
+                      onSelect={e => {
+                        const selectedItem = e.split('#')[1];
+                        console.log(
+                          `Selected item changed to: ${selectedItem}`
+                        );
+                        setCategory(selectedItem);
+                      }}
+                      href={'#' + option}
+                      active={
+                        option.toLowerCase() === _category.toLowerCase()
+                          ? true
+                          : false
+                      }
+                    >
+                      {option}
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
+            </Form.Label>
+          </Col>
+          <Col xs={12}>
+            <Form.Control
+              className="my-2 mx-auto"
+              style={{ background: 'transparent', color: '#fff' }}
+              as="input"
+              type="email"
+              value={_email}
+              onChange={e => {
+                console.log(`Phone number changed to: ${e.target.value}`);
+                setEmail(e.target.value);
+              }}
+            />
+          </Col>
+          <Col className="my-3" xs={12}>
+            <span
+              onClick={() => {
+                dropData({ category: _category, type: 'email', value: _email });
+              }}
+              className="btn btn-outline-primary d-inline-block border border-primary rounded font-weight-bold"
+            >
+              <i className="fas fa-pencil fw"></i> Save
+            </span>
+          </Col>
+
+          <Col className="my-3" xs={12}>
+            <span className="btn btn-outline-danger d-inline-block border border-danger rounded font-weight-bold">
+              <i className="fas fa-trash-alt fw"></i> Remove
+            </span>
           </Col>
         </Row>
-      </Form.Label>
+      </Container>
     </Form.Group>
   );
 };
 
-export default EmailFormGroup;
+export default PhoneFormGroup;

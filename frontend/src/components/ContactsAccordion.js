@@ -10,6 +10,7 @@ import {
   Form,
 } from 'react-bootstrap';
 import PhoneFormGroup from '../components/PhoneFormGroup';
+import EmailFormGroup from '../components/EmailFormGroup';
 const ContactsAccordion = ({ contacts }) => {
   const [emails, setEmails] = useState(null);
 
@@ -20,7 +21,7 @@ const ContactsAccordion = ({ contacts }) => {
 
   const saveChanges = obj => {
     console.log(
-      `${obj.type} changed category to ${obj.category} and number to ${obj.value}`
+      `${obj.type} changed category to ${obj.category} and ${obj.type} to ${obj.value}`
     );
     emails.push({ type: obj.type, category: obj.category, value: obj.value });
   };
@@ -67,15 +68,32 @@ const ContactsAccordion = ({ contacts }) => {
 
                 <Col xs={12} style={{ fontSize: '1.2rem' }}>
                   <Form>
-                    <h2 className="h5 text-left">Phones</h2>
-                    {contact.phones.map((phone, index) => (
-                      <PhoneFormGroup
-                        key={index + 1}
-                        phone={phone.phone}
-                        category={phone.category}
-                        dropData={saveChanges}
-                      />
-                    ))}
+                    <Row>
+                      <Col>
+                        <h2 className="h5 text-left">Phones</h2>
+                        {contact.phones.map((phone, index) => (
+                          <PhoneFormGroup
+                            key={index + 1}
+                            phone={phone.phone}
+                            category={phone.category}
+                            dropData={saveChanges}
+                          />
+                        ))}
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>
+                        <h2 className="h5 text-left">Emails</h2>
+                        {contact.emails.map((email, index) => (
+                          <EmailFormGroup
+                            key={index + 1}
+                            email={email.email}
+                            category={email.category}
+                            dropData={saveChanges}
+                          />
+                        ))}
+                      </Col>
+                    </Row>
                   </Form>
                 </Col>
               </Row>
