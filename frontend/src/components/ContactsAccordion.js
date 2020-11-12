@@ -87,7 +87,7 @@ const ContactsAccordion = ({ contacts }) => {
         </Accordion.Toggle>
         <Accordion.Collapse eventKey={contact._id}>
           <Card.Body
-            className="text-white border border-white"
+            className="text-white border border-white rounded"
             style={{ background: 'transparent', fontSize: '1.9rem' }}
           >
             <Jumbotron
