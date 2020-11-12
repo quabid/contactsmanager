@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Dropdown, Row, Col, Container } from 'react-bootstrap';
+import { Form, Row, Col } from 'react-bootstrap';
 
 const NameFormGroup = ({ firstName, lastName, dropData }) => {
   const [fname, setFname] = useState('');
@@ -15,13 +15,13 @@ const NameFormGroup = ({ firstName, lastName, dropData }) => {
       <Row>
         <Col xs={12} md={6}>
           <Form.Control
-            className='my-2 mx-auto'
+            className="my-2 mx-auto"
             style={{ background: 'transparent', color: '#fff' }}
-            size='lg'
-            as='input'
-            type='phone'
+            size="lg"
+            as="input"
+            type="phone"
             value={fname}
-            onChange={(e) => {
+            onChange={e => {
               console.log(`First name changed to: ${e.target.value}`);
               setFname(e.target.value);
             }}
@@ -29,13 +29,13 @@ const NameFormGroup = ({ firstName, lastName, dropData }) => {
         </Col>
         <Col xs={12} md={6}>
           <Form.Control
-            className='my-2 mx-auto'
+            className="my-2 mx-auto"
             style={{ background: 'transparent', color: '#fff' }}
-            size='lg'
-            as='input'
-            type='phone'
+            size="lg"
+            as="input"
+            type="phone"
             value={lname}
-            onChange={(e) => {
+            onChange={e => {
               console.log(`Last name changed to: ${e.target.value}`);
               setLname(e.target.value);
             }}
@@ -43,7 +43,7 @@ const NameFormGroup = ({ firstName, lastName, dropData }) => {
         </Col>
       </Row>
       <Row>
-        <Col className='my-3' xs={12} md={6}>
+        <Col className="my-3" xs={12} md={6}>
           <span
             onClick={() => {
               dropData({
@@ -52,9 +52,9 @@ const NameFormGroup = ({ firstName, lastName, dropData }) => {
                 lname: lname,
               });
             }}
-            className='btn btn-outline-primary d-inline-block border border-primary rounded font-weight-bold'
+            className="btn btn-outline-primary d-inline-block border border-primary rounded font-weight-bold"
           >
-            <i className='fas fa-pencil-alt fw'></i> Save
+            <i className="fas fa-pencil-alt fw"></i> Save
           </span>
         </Col>
       </Row>
