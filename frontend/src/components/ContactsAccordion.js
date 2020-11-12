@@ -22,7 +22,7 @@ const logger = bunyan.createLogger({
 const ContactsAccordion = ({ contacts }) => {
   const [emails, setEmails] = useState(null);
   const [phones, setPhones] = useState(null);
-  const [address, setAddresses] = useState(null);
+  const [addresses, setAddresses] = useState(null);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
@@ -69,6 +69,12 @@ const ContactsAccordion = ({ contacts }) => {
         );
         setFirstName(obj.fname);
         setLastName(obj.lname);
+        break;
+
+      case 'address':
+        logger.info(
+          `${obj.type} changed ${obj.category} address to ${obj.value.street} ${obj.value.city} ${obj.value.zipcode}`
+        );
         break;
 
       default:
