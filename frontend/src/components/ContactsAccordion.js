@@ -11,6 +11,7 @@ import {
 } from 'react-bootstrap';
 import PhoneFormGroup from '../components/PhoneFormGroup';
 import EmailFormGroup from '../components/EmailFormGroup';
+import NameFormGroup from '../components/NameFormGroup';
 const ContactsAccordion = ({ contacts }) => {
   const [emails, setEmails] = useState(null);
 
@@ -30,7 +31,7 @@ const ContactsAccordion = ({ contacts }) => {
     return (
       <Card
         key={contact._id}
-        className='text-white border border-white my-3'
+        className='text-white my-1'
         style={{ background: 'transparent', fontSize: '1.9rem' }}
       >
         <Accordion.Toggle as={Card.Header} eventKey={contact._id}>
@@ -41,7 +42,7 @@ const ContactsAccordion = ({ contacts }) => {
         </Accordion.Toggle>
         <Accordion.Collapse eventKey={contact._id}>
           <Card.Body
-            className='text-white'
+            className='text-white border border-white'
             style={{ background: 'transparent', fontSize: '1.9rem' }}
           >
             <Jumbotron
@@ -68,6 +69,15 @@ const ContactsAccordion = ({ contacts }) => {
 
                 <Col xs={12} style={{ fontSize: '1.2rem' }}>
                   <Form>
+                    <Row>
+                      <Col>
+                        <NameFormGroup
+                          key={contact._id}
+                          firstName={contact.fname}
+                          lastName={contact.lname}
+                        />
+                      </Col>
+                    </Row>
                     <Row>
                       <Col>
                         <h2 className='h5 text-left'>Phones</h2>
