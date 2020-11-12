@@ -16,22 +16,6 @@ import NameFormGroup from '../components/NameFormGroup';
 
 const logger = bunyan.createLogger({
   name: 'ContactsAcccordion Component',
-  /* streams: [
-    {
-      level: 'info',
-      stream: process.stdout, // log INFO and above to stdout
-    },
-    {
-      level: 'error',
-      stream: process.stderr,
-      //   path: '/var/tmp/myapp-error.log', // log ERROR and above to a file
-    },
-    {
-      level: 'warn',
-      stream: process.stdout,
-      //   path: '/var/tmp/myapp-error.log', // log ERROR and above to a file
-    },
-  ], */
 });
 
 const ContactsAccordion = ({ contacts }) => {
