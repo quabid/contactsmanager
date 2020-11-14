@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Form, Button, Col } from 'react-bootstrap';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
@@ -146,4 +146,4 @@ const RegisterScreen = ({ history }) => {
   );
 };
 
-export default RegisterScreen;
+export default withRouter(RegisterScreen);
