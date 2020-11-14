@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { Form, Button, Col } from 'react-bootstrap';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { register } from '../actions/UserActions';
 
-const SignupForm = ({ history }) => {
+export const SigninLink = () => (
+  <Col xs={12}>
+    <Link
+      className="link text-white text-center font-weight-bolder d-inline-block mx-auto"
+      to={'/login'}
+    >
+      Sign In
+    </Link>
+  </Col>
+);
+
+const RegisterScreen = ({ history }) => {
   const [fname, setFname] = useState('');
   const [lname, setLname] = useState('');
   const [email, setEmail] = useState('');
@@ -23,7 +35,7 @@ const SignupForm = ({ history }) => {
     function () {
       document.title = 'Sign Up';
       if (userInfo) {
-        history.push('/contacts');
+        history.push({ pathname: '/contacts' });
       }
     },
     [userInfo]
@@ -134,4 +146,4 @@ const SignupForm = ({ history }) => {
   );
 };
 
-export default SignupForm;
+export default RegisterScreen;

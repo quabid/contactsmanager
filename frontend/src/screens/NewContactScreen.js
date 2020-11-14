@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Form, Card, Button } from 'react-bootstrap';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { createContact } from '../actions/ContactsActions';
 
-const NewContactScreen = ({ location }) => {
+const NewContactScreen = ({ history }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [nickName, setNickName] = useState('');
@@ -21,7 +22,7 @@ const NewContactScreen = ({ location }) => {
   const createContactObject = useSelector(state => state.createContactObject);
   const { loading, error } = createContactObject;
 
-  const submitHandler = e => {
+  const submitHandler = function (e) {
     e.preventDefault();
     dispatch(
       createContact({
@@ -35,12 +36,12 @@ const NewContactScreen = ({ location }) => {
         zipcode,
       })
     );
+
+    history.push('/contacts');
   };
 
-  useEffect(() => {
-    if (!loading && !error) {
-      location.href = '/contacts';
-    }
+  useEffect(function () {
+    document.title = 'Add Contact';
   });
 
   return loading ? (
@@ -157,4 +158,4 @@ const NewContactScreen = ({ location }) => {
   );
 };
 
-export default NewContactScreen;
+export default withRouter(NewContactScreen);

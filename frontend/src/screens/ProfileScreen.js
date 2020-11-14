@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Loader from '../components/Loader';
 import UserProfile from '../components/UserProfile';
 import { Row, Col } from 'react-bootstrap';
-import { SigninLink } from './SignupScreen';
+import { SigninLink } from './RegisterScreen';
 import { getUserDetails } from '../actions/UserActions';
 
 const ErrorMessage = ({ children }) => {
