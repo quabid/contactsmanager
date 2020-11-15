@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
@@ -7,6 +7,8 @@ import ContactsAccordion from '../components/ContactsAccordion';
 import { listContacts, updateContact } from '../actions/ContactsActions';
 
 const ContactsScreen = () => {
+  const [hasChanges, setHasChanges] = useState(false);
+
   const dispatch = useDispatch();
 
   // @ts-ignore
@@ -17,10 +19,10 @@ const ContactsScreen = () => {
     dispatch(listContacts());
   }, [dispatch]);
 
-  const handleContactUpdate = contact => {
-    console.log(
-      `Updating contact ID: ${contact.id} to ${JSON.stringify(contact)}`
-    );
+  const handleContactsUpdate = contacts => {
+    hasChanges
+      ? console.log(`Updating contacts:  ${JSON.stringify(contacts)}`)
+      : console.log(`\n\n\t\t\n\n`);
   };
 
   return loading ? (
@@ -30,13 +32,34 @@ const ContactsScreen = () => {
   ) : (
     <Container fluid>
       <Row>
-        <Col className="my-4" xs={12}>
-          <Button variant="outline-primary">Save Changes</Button>
+        <Col xs={12}>
+          <Row>
+            <Col className="my-4" xs={6}>
+              <Button
+                disabled={hasChanges ? false : true}
+                variant="outline-primary"
+              >
+                Save Changes
+              </Button>
+            </Col>
+
+            <Col className="my-4" xs={6}>
+              <Button
+                onClick={() => setHasChanges(false)}
+                disabled={hasChanges ? false : true}
+                variant="outline-success"
+              >
+                Cancel Changes
+              </Button>
+            </Col>
+          </Row>
         </Col>
-        <Col className="v-scroll" style={{ height: '75vh' }} xs={12}>
+        <Col className="v-scroll" style={{ height: '77vh' }} xs={12}>
           <ContactsAccordion
-            handleUpdate={handleContactUpdate}
+            handleUpdate={handleContactsUpdate}
             contacts={contacts}
+            setHasChanges={setHasChanges}
+            hasChanges={hasChanges}
           />
         </Col>
       </Row>
