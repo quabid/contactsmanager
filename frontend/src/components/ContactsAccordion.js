@@ -50,7 +50,7 @@ const ContactsAccordion = ({ contacts, handleUpdate }) => {
           case 'address':
             delete obj.type;
             delete obj.id;
-            existing.address.push(obj);
+            existing.addresses.push(obj);
             break;
 
           case 'name':

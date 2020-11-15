@@ -23,7 +23,6 @@ const contactSchema = new Schema({
       category: {
         type: String,
         required: true,
-        unique: true,
       },
       email: {
         type: String,
@@ -36,7 +35,6 @@ const contactSchema = new Schema({
       category: {
         type: String,
         required: true,
-        unique: true,
       },
       phone: {
         type: String,
@@ -50,7 +48,6 @@ const contactSchema = new Schema({
       category: {
         type: String,
         required: true,
-        unique: true,
       },
       address: {
         street: {
@@ -72,7 +69,7 @@ const contactSchema = new Schema({
 
 contactSchema.methods.findByEmail = function (email) {
   const contact = this.toObject();
-  if (contact.emails.find((x) => x.email == email) != undefined) {
+  if (contact.emails.find(x => x.email == email) != undefined) {
     return contact;
   }
   return null;

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import ContactsAccordion from '../components/ContactsAccordion';
 import { listContacts, updateContact } from '../actions/ContactsActions';
 
@@ -27,7 +28,19 @@ const ContactsScreen = () => {
   ) : error ? (
     <Message variant="danger">{error}</Message>
   ) : (
-    <ContactsAccordion handleUpdate={handleContactUpdate} contacts={contacts} />
+    <Container fluid>
+      <Row>
+        <Col className="my-4" xs={12}>
+          <Button variant="outline-primary">Save Changes</Button>
+        </Col>
+        <Col className="v-scroll" style={{ height: '75vh' }} xs={12}>
+          <ContactsAccordion
+            handleUpdate={handleContactUpdate}
+            contacts={contacts}
+          />
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
