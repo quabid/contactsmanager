@@ -7,7 +7,7 @@ import ContactsAccordion from '../components/ContactsAccordion';
 import { listContacts, updateContact } from '../actions/ContactsActions';
 
 const ContactsScreen = () => {
-  const [hasChanges, setHasChanges] = useState(false);
+  const [updates, setUpdates] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -20,7 +20,7 @@ const ContactsScreen = () => {
   }, [dispatch]);
 
   const handleContactsUpdate = contacts => {
-    hasChanges
+    updates
       ? console.log(`Updating contacts:  ${JSON.stringify(contacts)}`)
       : console.log(`\n\n\t\t\n\n`);
   };
@@ -36,7 +36,7 @@ const ContactsScreen = () => {
           <Row>
             <Col className="my-4" xs={6}>
               <Button
-                disabled={hasChanges ? false : true}
+                disabled={updates ? false : true}
                 variant="outline-primary"
               >
                 Save Changes
@@ -45,8 +45,8 @@ const ContactsScreen = () => {
 
             <Col className="my-4" xs={6}>
               <Button
-                onClick={() => setHasChanges(false)}
-                disabled={hasChanges ? false : true}
+                onClick={() => setUpdates(false)}
+                disabled={updates ? false : true}
                 variant="outline-success"
               >
                 Cancel Changes
@@ -58,8 +58,8 @@ const ContactsScreen = () => {
           <ContactsAccordion
             handleUpdate={handleContactsUpdate}
             contacts={contacts}
-            setHasChanges={setHasChanges}
-            hasChanges={hasChanges}
+            setHasUpdates={setUpdates}
+            hasUpdates={updates}
           />
         </Col>
       </Row>

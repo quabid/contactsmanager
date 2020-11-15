@@ -22,16 +22,16 @@ const logger = bunyan.createLogger({
 const ContactsAccordion = ({
   contacts,
   handleUpdate,
-  setHasChanges,
-  hasChanges,
+  setHasUpdates,
+  hasUpdates,
 }) => {
   const [updatedContacts, setUpdatedContacts] = useState(null);
 
   useEffect(() => {
-    if (!hasChanges) {
+    if (!hasUpdates) {
       setUpdatedContacts([]);
     }
-  }, [setUpdatedContacts, hasChanges]);
+  }, [setUpdatedContacts, hasUpdates]);
 
   const saveChanges = obj => {
     if (obj.id) {
@@ -70,6 +70,8 @@ const ContactsAccordion = ({
       } else {
         const updatedContact = {
           id: obj.id,
+          fname: '',
+          lname: '',
           emails: [],
           phones: [],
           addresses: [],
@@ -106,8 +108,8 @@ const ContactsAccordion = ({
       }
 
       logger.info(`Updated Contacts: ${JSON.stringify(updatedContacts)}`);
-      const hasChanges = updatedContacts.length > 0 ? true : false;
-      setHasChanges(hasChanges);
+      const updatesAvailable = updatedContacts.length > 0 ? true : false;
+      setHasUpdates(updatesAvailable);
       handleUpdate(updatedContacts);
     }
   };
