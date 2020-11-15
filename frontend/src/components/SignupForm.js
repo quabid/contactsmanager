@@ -26,7 +26,7 @@ const SignupForm = ({ history }) => {
         history.push('/contacts');
       }
     },
-    [userInfo]
+    [userInfo, history]
   );
 
   const submitHandler = e => {

@@ -9,6 +9,7 @@ import {
   Form,
 } from 'react-bootstrap';
 import bunyan from 'bunyan';
+// import { cap, stringify, parse, log } from '../utils';
 import PhoneFormGroup from '../components/PhoneFormGroup';
 import EmailFormGroup from '../components/EmailFormGroup';
 import NameFormGroup from '../components/NameFormGroup';
@@ -18,66 +19,89 @@ const logger = bunyan.createLogger({
   name: 'ContactsAcccordion Component',
 });
 
-const ContactsAccordion = ({ contacts }) => {
-  const [emails, setEmails] = useState(null);
-  const [phones, setPhones] = useState(null);
-  const [addresses, setAddresses] = useState(null);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+const ContactsAccordion = ({ contacts, handleUpdate }) => {
+  const [updatedContacts, setUpdatedContacts] = useState(null);
 
   useEffect(() => {
-    setEmails([]);
-    setPhones([]);
-    setAddresses([]);
+    setUpdatedContacts([]);
     return () => {
-      setEmails(null);
-      setPhones(null);
-      setAddresses(null);
-      setFirstName('');
-      setLastName('');
+      setUpdatedContacts(null);
     };
-  }, [setEmails, setPhones, setFirstName, setLastName, setAddresses]);
+  }, [setUpdatedContacts]);
 
   const saveChanges = obj => {
-    switch (obj.type) {
-      case 'email':
-        logger.info(
-          `${obj.type} changed category to ${obj.category} and value to ${obj.value}`
-        );
-        emails.push({
-          type: obj.type,
-          category: obj.category,
-          value: obj.value,
-        });
-        break;
+    if (obj.id) {
+      const existing = updatedContacts.find(x => x.id === obj.id) || null;
 
-      case 'phone':
-        logger.info(
-          `${obj.type} changed category to ${obj.category} and value to ${obj.value}`
-        );
-        phones.push({
-          type: obj.type,
-          category: obj.category,
-          value: obj.value,
-        });
-        break;
+      if (null !== existing) {
+        switch (obj.type) {
+          case 'email':
+            delete obj.type;
+            delete obj.id;
+            existing.emails.push(obj);
+            break;
 
-      case 'name':
-        logger.info(
-          `${obj.type} changed ${obj.type} to ${obj.fname} and ${obj.lname}`
-        );
-        setFirstName(obj.fname);
-        setLastName(obj.lname);
-        break;
+          case 'phone':
+            delete obj.type;
+            delete obj.id;
+            existing.phones.push(obj);
+            break;
 
-      case 'address':
-        logger.info(
-          `${obj.type} changed ${obj.category} address to ${obj.value.street} ${obj.value.city} ${obj.value.zipcode}`
-        );
-        break;
+          case 'address':
+            delete obj.type;
+            delete obj.id;
+            existing.address.push(obj);
+            break;
 
-      default:
-        return;
+          case 'name':
+            delete obj.type;
+            delete obj.id;
+            existing.fname = obj.fname;
+            existing.lname = obj.lname;
+            break;
+
+          default:
+            return;
+        }
+      } else {
+        const updatedContact = {
+          id: obj.id,
+          emails: [],
+          phones: [],
+          addresses: [],
+        };
+        updatedContacts.push(updatedContact);
+
+        switch (obj.type) {
+          case 'email':
+            delete obj.type;
+            delete obj.id;
+            updatedContact.emails.push(obj);
+            break;
+
+          case 'phone':
+            delete obj.type;
+            delete obj.id;
+            updatedContact.phones.push(obj);
+            break;
+
+          case 'address':
+            delete obj.type;
+            delete obj.id;
+            updatedContact.addresses.push(obj);
+            break;
+
+          case 'name':
+            updatedContact.fname = obj.fname;
+            updatedContact.lname = obj.lname;
+            break;
+
+          default:
+            return;
+        }
+      }
+
+      logger.info(`Updated Contacts: ${JSON.stringify(updatedContacts)}`);
     }
   };
 
@@ -123,22 +147,27 @@ const ContactsAccordion = ({ contacts }) => {
 
                 <Col xs={12} style={{ fontSize: '1.2rem' }}>
                   <Form>
-                    <Row>
-                      <Col>
+                    <Row className="border border-secondary rounded my-2">
+                      <Col className="p-3">
                         <h2 className="h5 text-left">Name</h2>
                         <NameFormGroup
+                          id={contact._id}
                           firstName={contact.fname}
                           lastName={contact.lname}
                           dropData={saveChanges}
                         />
                       </Col>
                     </Row>
-                    <Row>
-                      <Col>
+                    <Row className="border border-secondary rounded my-2">
+                      <Col className="p-3">
                         <h2 className="h5 text-left">Phones</h2>
+                        <h2 className="h5 text-right d-inline-block add add-phone">
+                          <i className="fas fa-plus fw"></i>
+                        </h2>
                         {contact.phones.map((phone, index) => (
                           <PhoneFormGroup
                             key={index + 1}
+                            id={contact._id}
                             phone={phone.phone}
                             category={phone.category}
                             dropData={saveChanges}
@@ -146,12 +175,16 @@ const ContactsAccordion = ({ contacts }) => {
                         ))}
                       </Col>
                     </Row>
-                    <Row>
-                      <Col>
+                    <Row className="border border-secondary rounded my-2">
+                      <Col className="p-3">
                         <h2 className="h5 text-left">Emails</h2>
+                        <h2 className="h5 text-right d-inline-block add add-email">
+                          <i className="fas fa-plus fw"></i>
+                        </h2>
                         {contact.emails.map((email, index) => (
                           <EmailFormGroup
                             key={index + 1}
+                            id={contact._id}
                             email={email.email}
                             category={email.category}
                             dropData={saveChanges}
@@ -159,12 +192,16 @@ const ContactsAccordion = ({ contacts }) => {
                         ))}
                       </Col>
                     </Row>
-                    <Row>
-                      <Col>
+                    <Row className="border border-secondary rounded my-2">
+                      <Col className="p-3">
                         <h2 className="h5 text-left">Addresses</h2>
+                        <h2 className="h5 text-right d-inline-block add add-address">
+                          <i className="fas fa-plus fw"></i>
+                        </h2>
                         {contact.addresses.map((address, index) => (
                           <AddressFormGroup
                             key={index + 1}
+                            id={contact._id}
                             address={address.address}
                             category={address.category}
                             dropData={saveChanges}

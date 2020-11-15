@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Row, Col } from 'react-bootstrap';
 
-const NameFormGroup = ({ firstName, lastName, dropData }) => {
+const NameFormGroup = ({ id, firstName, lastName, dropData }) => {
   const [fname, setFname] = useState('');
   const [lname, setLname] = useState('');
 
@@ -36,7 +36,7 @@ const NameFormGroup = ({ firstName, lastName, dropData }) => {
             type="phone"
             value={lname}
             onChange={e => {
-              console.log(`Last name changed to: ${e.target.value}`);
+              // console.log(`Last name changed to: ${e.target.value}`);
               setLname(e.target.value);
             }}
           />
@@ -47,6 +47,7 @@ const NameFormGroup = ({ firstName, lastName, dropData }) => {
           <span
             onClick={() => {
               dropData({
+                id: id,
                 type: 'name',
                 fname: fname,
                 lname: lname,

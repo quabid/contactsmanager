@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import ContactsAccordion from '../components/ContactsAccordion';
-import { listContacts } from '../actions/ContactsActions';
+import { listContacts, updateContact } from '../actions/ContactsActions';
 
 const ContactsScreen = () => {
   const dispatch = useDispatch();
@@ -16,12 +16,18 @@ const ContactsScreen = () => {
     dispatch(listContacts());
   }, [dispatch]);
 
+  const handleContactUpdate = contact => {
+    console.log(
+      `Updating contact ID: ${contact.id} to ${JSON.stringify(contact)}`
+    );
+  };
+
   return loading ? (
     <Loader />
   ) : error ? (
     <Message variant="danger">{error}</Message>
   ) : (
-    <ContactsAccordion contacts={contacts} />
+    <ContactsAccordion handleUpdate={handleContactUpdate} contacts={contacts} />
   );
 };
 

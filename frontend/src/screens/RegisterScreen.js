@@ -38,7 +38,7 @@ const RegisterScreen = ({ history }) => {
         history.push({ pathname: '/contacts' });
       }
     },
-    [userInfo]
+    [userInfo, history]
   );
 
   const submitHandler = e => {

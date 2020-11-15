@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Dropdown, Row, Col, Container } from 'react-bootstrap';
 import { OPTIONS } from '../constants/DropdownConstants';
 
-const EmailFormGroup = ({ category, email, dropData }) => {
+const EmailFormGroup = ({ id, category, email, dropData }) => {
   const [_email, setEmail] = useState('');
   const [_category, setCategory] = useState('');
 
@@ -64,7 +64,7 @@ const EmailFormGroup = ({ category, email, dropData }) => {
               type="email"
               value={_email}
               onChange={e => {
-                console.log(`Phone number changed to: ${e.target.value}`);
+                // console.log(`Phone number changed to: ${e.target.value}`);
                 setEmail(e.target.value);
               }}
             />
@@ -72,7 +72,12 @@ const EmailFormGroup = ({ category, email, dropData }) => {
           <Col className="my-3" xs={12} md={6}>
             <span
               onClick={() => {
-                dropData({ category: _category, type: 'email', value: _email });
+                dropData({
+                  id: id,
+                  category: _category,
+                  type: 'email',
+                  email: _email,
+                });
               }}
               className="btn btn-outline-primary d-inline-block border border-primary rounded font-weight-bold"
             >

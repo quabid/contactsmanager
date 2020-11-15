@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Dropdown, Row, Col, Container } from 'react-bootstrap';
 import { OPTIONS } from '../constants/DropdownConstants';
 
-const AddressFormGroup = ({ category, address, dropData }) => {
+const AddressFormGroup = ({ id, category, address, dropData }) => {
   const [street, setStreet] = useState('');
   const [city, setCity] = useState('');
   const [zipcode, setZipcode] = useState('');
@@ -77,7 +77,7 @@ const AddressFormGroup = ({ category, address, dropData }) => {
               type="text"
               value={street}
               onChange={e => {
-                console.log(`Street changed to: ${e.target.value}`);
+                // console.log(`Street changed to: ${e.target.value}`);
                 setStreet(e.target.value);
               }}
             />
@@ -117,9 +117,10 @@ const AddressFormGroup = ({ category, address, dropData }) => {
             <span
               onClick={() => {
                 dropData({
+                  id: id,
                   category: _category,
                   type: 'address',
-                  value: { street, city, zipcode },
+                  address: { street, city, zipcode },
                 });
               }}
               className="btn btn-outline-primary d-inline-block border border-primary rounded font-weight-bold"
