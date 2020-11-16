@@ -70,8 +70,6 @@ const ContactsAccordion = ({
       } else {
         const updatedContact = {
           id: obj.id,
-          fname: '',
-          lname: '',
           emails: [],
           phones: [],
           addresses: [],
