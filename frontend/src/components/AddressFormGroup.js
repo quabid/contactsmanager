@@ -109,6 +109,7 @@ const AddressFormGroup = ({ id, category, address, dropData }) => {
               </Dropdown>
             </Form.Label>
           </Col>
+
           <Col xs={12}>
             <Form.Control
               className="my-2 mx-auto"
