@@ -112,6 +112,17 @@ const ContactsAccordion = ({
     }
   };
 
+  const cancelChanges = id => {
+    const uci = updatedContacts.findIndex(x => x.id === id);
+
+    if (-1 !== uci) {
+      updatedContacts.splice(uci);
+      logger.info(
+        `Removed update ID: ${id} ${JSON.stringify(updatedContacts)}`
+      );
+    }
+  };
+
   const accordion = contacts.map(contact => {
     return (
       <Card

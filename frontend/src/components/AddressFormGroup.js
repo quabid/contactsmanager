@@ -7,12 +7,23 @@ const AddressFormGroup = ({ id, category, address, dropData }) => {
   const [city, setCity] = useState('');
   const [zipcode, setZipcode] = useState('');
   const [_category, setCategory] = useState('');
+  const [bu_street, setBuStreet] = useState('');
+  const [bu_city, setBuCity] = useState('');
+  const [bu_zipcode, setBuZipcode] = useState('');
+  // const [bu_category, setBuCategory] = useState('');
+  const [streetChangeOccured, setStreetChangeOccured] = useState(false);
+  const [cityChangeOccured, setCityChangeOccured] = useState(false);
+  const [zipcodeChangeOccured, setZipcodeChangeOccured] = useState(false);
 
   useEffect(() => {
     setCategory(_category || category);
     setStreet(street || address.street);
     setCity(city || address.city);
     setZipcode(zipcode || address.zipcode);
+    // setBuCategory(category);
+    setBuStreet(address.street);
+    setBuCity(address.city);
+    setBuZipcode(address.zipcode);
   }, [
     category,
     address.street,
@@ -23,6 +34,36 @@ const AddressFormGroup = ({ id, category, address, dropData }) => {
     city,
     zipcode,
   ]);
+
+  const resetStreet = () => {
+    setStreet(bu_street);
+    setStreetChangeOccured(false);
+  };
+
+  const resetCity = () => {
+    setCity(bu_city);
+    setCityChangeOccured(false);
+  };
+
+  const resetZipcode = () => {
+    setZipcode(bu_zipcode);
+    setZipcodeChangeOccured(false);
+  };
+
+  const onStreetChangeHandler = e => setStreet(e.target.value);
+
+  const onCityChangeHandler = e => setCity(e.target.value);
+
+  const onZipcodeChangeHandler = e => setZipcode(e.target.value);
+
+  const onStreetKeyup = () =>
+    setStreetChangeOccured(street !== bu_street ? true : false);
+
+  const onCityKeyup = () =>
+    setCityChangeOccured(city !== bu_city ? true : false);
+
+  const onZipcodeKeyup = () =>
+    setZipcodeChangeOccured(zipcode !== bu_zipcode ? true : false);
 
   return (
     <Form.Group controlId="exampleForm.SelectCustom">
@@ -76,11 +117,20 @@ const AddressFormGroup = ({ id, category, address, dropData }) => {
               as="input"
               type="text"
               value={street}
-              onChange={e => {
-                // console.log(`Street changed to: ${e.target.value}`);
-                setStreet(e.target.value);
-              }}
+              onChange={onStreetChangeHandler}
+              onKeyUp={onStreetKeyup}
             />
+
+            {streetChangeOccured ? (
+              <Col className="my-3" xs={12} md={3}>
+                <span
+                  onClick={resetStreet}
+                  className="btn btn-outline-success d-inline-block border border-success rounded font-weight-bold"
+                >
+                  <i className="fas fa-stop fw"></i> Cancel
+                </span>
+              </Col>
+            ) : null}
           </Col>
 
           <Col xs={12}>
@@ -91,11 +141,20 @@ const AddressFormGroup = ({ id, category, address, dropData }) => {
               as="input"
               type="text"
               value={city}
-              onChange={e => {
-                console.log(`City changed to: ${e.target.value}`);
-                setCity(e.target.value);
-              }}
+              onChange={onCityChangeHandler}
+              onKeyUp={onCityKeyup}
             />
+
+            {cityChangeOccured ? (
+              <Col className="my-3" xs={12} md={3}>
+                <span
+                  onClick={resetCity}
+                  className="btn btn-outline-success d-inline-block border border-success rounded font-weight-bold"
+                >
+                  <i className="fas fa-stop fw"></i> Cancel
+                </span>
+              </Col>
+            ) : null}
           </Col>
 
           <Col xs={12}>
@@ -106,11 +165,20 @@ const AddressFormGroup = ({ id, category, address, dropData }) => {
               as="input"
               type="zipcode"
               value={zipcode}
-              onChange={e => {
-                console.log(`Zipcode changed to: ${e.target.value}`);
-                setZipcode(e.target.value);
-              }}
+              onChange={onZipcodeChangeHandler}
+              onKeyUp={onZipcodeKeyup}
             />
+
+            {zipcodeChangeOccured ? (
+              <Col className="my-3" xs={12} md={3}>
+                <span
+                  onClick={resetZipcode}
+                  className="btn btn-outline-success d-inline-block border border-success rounded font-weight-bold"
+                >
+                  <i className="fas fa-stop fw"></i> Cancel
+                </span>
+              </Col>
+            ) : null}
           </Col>
 
           <Col className="my-3" xs={12} md={6}>

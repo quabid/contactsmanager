@@ -5,11 +5,29 @@ import { OPTIONS } from '../constants/DropdownConstants';
 const PhoneFormGroup = ({ id, category, phone, dropData }) => {
   const [_phone, setPhone] = useState('');
   const [_category, setCategory] = useState('');
+  const [bu_phone, setBuPhone] = useState('');
+  const [bu_category, setBuCategory] = useState('');
+  const [changeOccured, setChangeOccured] = useState(false);
 
   useEffect(() => {
     setCategory(_category || category);
     setPhone(_phone || phone);
+    setBuCategory(category);
+    setBuPhone(phone);
   }, [category, phone, _category, _phone]);
+
+  const resetPhone = () => {
+    setCategory(bu_category);
+    setPhone(bu_phone);
+    setChangeOccured(false);
+  };
+
+  const onChangeHandler = e => {
+    setPhone(e.target.value.trim());
+  };
+
+  const onKeyupHandler = () =>
+    setChangeOccured(_phone.trim() !== bu_phone.trim() ? true : false);
 
   return (
     <Form.Group controlId="exampleForm.SelectCustom">
@@ -63,13 +81,11 @@ const PhoneFormGroup = ({ id, category, phone, dropData }) => {
               as="input"
               type="phone"
               value={_phone}
-              onChange={e => {
-                // console.log(`Phone number changed to: ${e.target.value}`);
-                setPhone(e.target.value);
-              }}
+              onChange={onChangeHandler}
+              onKeyUp={onKeyupHandler}
             />
           </Col>
-          <Col className="my-3" xs={12} md={6}>
+          <Col className="my-3" xs={12} md={changeOccured ? 3 : 6}>
             <span
               onClick={() => {
                 dropData({
@@ -84,8 +100,17 @@ const PhoneFormGroup = ({ id, category, phone, dropData }) => {
               <i className="fas fa-pencil-alt fw"></i> Save
             </span>
           </Col>
-
-          <Col className="my-3" xs={12} md={6}>
+          {changeOccured ? (
+            <Col className="my-3" xs={12} md={3}>
+              <span
+                onClick={resetPhone}
+                className="btn btn-outline-success d-inline-block border border-success rounded font-weight-bold"
+              >
+                <i className="fas fa-stop fw"></i> Cancel
+              </span>
+            </Col>
+          ) : null}
+          <Col className="my-3" xs={12} md={changeOccured ? 3 : 6}>
             <span className="btn btn-outline-danger d-inline-block border border-danger rounded font-weight-bold">
               <i className="fas fa-trash-alt fw"></i> Remove
             </span>

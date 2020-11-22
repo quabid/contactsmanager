@@ -32,7 +32,7 @@ export const login = (email, password) => async dispatch => {
       { email, password },
       config
     );
-    console.log(`logged in user details: ${JSON.stringify(data)}`);
+    // console.log(`logged in user details: ${JSON.stringify(data)}`);
 
     localStorage.setItem('userInfo', JSON.stringify(data));
 
@@ -41,6 +41,7 @@ export const login = (email, password) => async dispatch => {
       payload: data,
     });
   } catch (error) {
+    console.log(`${error.message}`);
     dispatch({
       type: USER_LOGIN_FAIL,
       payload:

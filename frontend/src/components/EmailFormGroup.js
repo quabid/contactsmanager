@@ -5,11 +5,29 @@ import { OPTIONS } from '../constants/DropdownConstants';
 const EmailFormGroup = ({ id, category, email, dropData }) => {
   const [_email, setEmail] = useState('');
   const [_category, setCategory] = useState('');
+  const [bu_email, setBuEmail] = useState('');
+  const [bu_category, setBuCategory] = useState('');
+  const [changeOccured, setChangeOccured] = useState(false);
 
   useEffect(() => {
     setCategory(_category || category);
     setEmail(_email || email);
+    setBuCategory(category);
+    setBuEmail(email);
   }, [category, email, _category, _email]);
+
+  const resetEmail = () => {
+    setCategory(bu_category);
+    setEmail(bu_email);
+    setChangeOccured(false);
+  };
+
+  const onChangeHandler = e => {
+    setEmail(e.target.value.trim());
+  };
+
+  const onKeyupHandler = () =>
+    setChangeOccured(_email.trim() !== bu_email.trim() ? true : false);
 
   return (
     <Form.Group controlId="exampleForm.SelectCustom">
@@ -63,10 +81,8 @@ const EmailFormGroup = ({ id, category, email, dropData }) => {
               as="input"
               type="email"
               value={_email}
-              onChange={e => {
-                // console.log(`Phone number changed to: ${e.target.value}`);
-                setEmail(e.target.value);
-              }}
+              onChange={onChangeHandler}
+              onKeyUp={onKeyupHandler}
             />
           </Col>
           <Col className="my-3" xs={12} md={6}>
@@ -84,6 +100,16 @@ const EmailFormGroup = ({ id, category, email, dropData }) => {
               <i className="fas fa-pencil-alt fw"></i> Save
             </span>
           </Col>
+          {changeOccured ? (
+            <Col className="my-3" xs={12} md={3}>
+              <span
+                onClick={resetEmail}
+                className="btn btn-outline-success d-inline-block border border-success rounded font-weight-bold"
+              >
+                <i className="fas fa-stop fw"></i> Cancel
+              </span>
+            </Col>
+          ) : null}
 
           <Col className="my-3" xs={12} md={6}>
             <span className="btn btn-outline-danger d-inline-block border border-danger rounded font-weight-bold">
