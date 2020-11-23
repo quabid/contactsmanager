@@ -4,7 +4,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import ContactsAccordion from '../components/ContactsAccordion';
-import { listContacts, updateContact } from '../actions/ContactsActions';
+import { listContacts, updateContact } from '../actions/ContactsActions_';
 
 const ContactsScreen = () => {
   const [updates, setUpdates] = useState(false);
