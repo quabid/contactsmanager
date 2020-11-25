@@ -12,7 +12,7 @@ export const listContacts = () => async (dispatch, getState) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userInfo['token']}`,
       },
     };
 
@@ -44,7 +44,7 @@ export const getContact = id => async (dispatch, getState) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userInfo['token']}`,
       },
     };
 
@@ -76,7 +76,7 @@ export const createContact = contact => async (dispatch, getState) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userInfo['token']}`,
       },
     };
 
@@ -108,7 +108,7 @@ export const updateContact = contact => async (dispatch, getState) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userInfo['token']}`,
       },
     };
 
