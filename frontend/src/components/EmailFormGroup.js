@@ -118,7 +118,7 @@ const EmailFormGroup = ({
           </Col>
 
           {changeOccured ? (
-            <Col className="my-3" xs={12} md={6}>
+            <Col className="my-3" xs={12} md={3}>
               <span
                 onClick={saveProperty}
                 className="btn btn-outline-primary d-inline-block border border-primary rounded font-weight-bold"
@@ -128,7 +128,7 @@ const EmailFormGroup = ({
             </Col>
           ) : null}
 
-          {changes ? (
+          {changes || changeOccured ? (
             <>
               <Col className="my-3" xs={12} md={3}>
                 <span
@@ -142,6 +142,7 @@ const EmailFormGroup = ({
                   <i className="fas fa-go fw"></i> Apply
                 </span>
               </Col>
+
               <Col className="my-3" xs={12} md={3}>
                 <span
                   onClick={resetEmail}
@@ -153,7 +154,7 @@ const EmailFormGroup = ({
             </>
           ) : null}
 
-          <Col className="my-3" xs={12} md={6}>
+          <Col className="my-3" xs={12} md={3}>
             <span
               onClick={deleteProperty}
               className="btn btn-outline-danger d-inline-block border border-danger rounded font-weight-bold"

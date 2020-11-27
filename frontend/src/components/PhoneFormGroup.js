@@ -53,7 +53,9 @@ const PhoneFormGroup = ({
   };
 
   const onChangeHandler = e => {
-    setPhone(e.target.value.trim());
+    setPhone(
+      e.target.value.trim() !== _phone.trim() ? e.target.value.trim() : bu_phone
+    );
   };
 
   const onKeyupHandler = () =>
@@ -116,27 +118,20 @@ const PhoneFormGroup = ({
             />
           </Col>
           {changeOccured ? (
-            <Col className="my-3" xs={12}>
-              <span>
+            <Col className="my-3" xs={12} md={3}>
+              <span
                 onClick={saveProperty}
                 className="btn btn-outline-primary d-inline-block border
-                border-primary rounded font-weight-bold" >
+                border-primary rounded font-weight-bold"
+              >
                 <i className="fas fa-pencil-alt fw"></i> Save
               </span>
             </Col>
           ) : null}
+
           {changeOccured || changes ? (
             <>
-              <Col className="my-3" xs={12}>
-                <span
-                  onClick={resetPhone}
-                  className="btn btn-outline-success d-inline-block border border-success rounded font-weight-bold"
-                >
-                  <i className="fas fa-stop fw"></i> Cancel
-                </span>
-              </Col>
-
-              <Col className="my-3" xs={12}>
+              <Col className="my-3" xs={12} md={3}>
                 <span
                   onClick={() => {
                     changes && changes.action === 'update'
@@ -148,9 +143,19 @@ const PhoneFormGroup = ({
                   <i className="fas fa-go fw"></i> Apply
                 </span>
               </Col>
+
+              <Col className="my-3" xs={12} md={3}>
+                <span
+                  onClick={resetPhone}
+                  className="btn btn-outline-success d-inline-block border border-success rounded font-weight-bold"
+                >
+                  <i className="fas fa-stop fw"></i> Cancel
+                </span>
+              </Col>
             </>
           ) : null}
-          <Col className="my-3" xs={12}>
+
+          <Col className="my-3" xs={12} md={3}>
             <span
               onClick={deleteProperty}
               className="btn btn-outline-danger d-inline-block border border-danger rounded font-weight-bold"

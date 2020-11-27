@@ -16,7 +16,7 @@ const AddressFormGroup = ({
   const [bu_street, setBuStreet] = useState('');
   const [bu_city, setBuCity] = useState('');
   const [bu_zipcode, setBuZipcode] = useState('');
-  // const [bu_category, setBuCategory] = useState('');
+  const [bu_category, setBuCategory] = useState('');
   const [streetChangeOccured, setStreetChangeOccured] = useState(false);
   const [cityChangeOccured, setCityChangeOccured] = useState(false);
   const [zipcodeChangeOccured, setZipcodeChangeOccured] = useState(false);
@@ -26,7 +26,7 @@ const AddressFormGroup = ({
     setStreet(street || address.street);
     setCity(city || address.city);
     setZipcode(zipcode || address.zipcode);
-    // setBuCategory(category);
+    setBuCategory(category);
     setBuStreet(address.street);
     setBuCity(address.city);
     setBuZipcode(address.zipcode);
@@ -56,11 +56,30 @@ const AddressFormGroup = ({
     setZipcodeChangeOccured(false);
   };
 
-  const onStreetChangeHandler = e => setStreet(e.target.value);
+  const resetCategory = () => {
+    setCategory(bu_category);
+  };
 
-  const onCityChangeHandler = e => setCity(e.target.value);
+  const onStreetChangeHandler = e =>
+    setStreet(
+      e.target.value.trim() !== street.trim()
+        ? e.target.value
+        : bu_street.trim()
+    );
 
-  const onZipcodeChangeHandler = e => setZipcode(e.target.value);
+  const onCityChangeHandler = e =>
+    setCity(
+      e.target.value.trim() !== city.trim()
+        ? e.target.value.trim()
+        : city.trim()
+    );
+
+  const onZipcodeChangeHandler = e =>
+    setZipcode(
+      e.target.value.trim() !== zipcode.trim()
+        ? e.target.value.trim()
+        : zipcode.trim()
+    );
 
   const onStreetKeyup = () =>
     setStreetChangeOccured(street !== bu_street ? true : false);
@@ -188,22 +207,7 @@ const AddressFormGroup = ({
             ) : null}
           </Col>
 
-          <Col className="my-3" xs={12} md={6}>
-            <span
-              /* onClick={modifyProperty({
-                id: id,
-                category: _category,
-                type: 'address',
-                address: { street, city, zipcode },
-              })} */
-              onClick={() => console.log(`${id} modified address`)}
-              className="btn btn-outline-primary d-inline-block border border-primary rounded font-weight-bold"
-            >
-              <i className="fas fa-pencil-alt fw"></i> Save
-            </span>
-          </Col>
-
-          <Col className="my-3" xs={12} md={6}>
+          <Col className="my-3" xs={12} md={3}>
             <span
               /* onClick={removeProperty({
                 id: id,
@@ -217,6 +221,23 @@ const AddressFormGroup = ({
               <i className="fas fa-trash-alt fw"></i> Remove
             </span>
           </Col>
+
+          {streetChangeOccured || cityChangeOccured || zipcodeChangeOccured ? (
+            <Col className="my-3" xs={12} md={3}>
+              <span
+                /* onClick={modifyProperty({
+                id: id,
+                category: _category,
+                type: 'address',
+                address: { street, city, zipcode },
+              })} */
+                onClick={() => console.log(`${id} modified address`)}
+                className="btn btn-outline-primary d-inline-block border border-primary rounded font-weight-bold"
+              >
+                <i className="fas fa-pencil-alt fw"></i> Save
+              </span>
+            </Col>
+          ) : null}
         </Row>
       </Container>
     </Form.Group>
