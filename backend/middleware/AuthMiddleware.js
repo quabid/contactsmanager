@@ -16,7 +16,7 @@ export const protect = asyncHandler(async (req, res, next) => {
       // @ts-ignore
       req.user = await UserModel.findById(decoded.id).select('-password');
     } catch (err) {
-      console.clear();
+      // console.clear();
       console.log(err.message);
       res.status(401);
       throw new Error('Not authorized, token failed');

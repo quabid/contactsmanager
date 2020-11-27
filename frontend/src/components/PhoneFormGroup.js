@@ -2,12 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Form, Dropdown, Row, Col, Container } from 'react-bootstrap';
 import { OPTIONS } from '../constants/DropdownConstants';
 
-const PhoneFormGroup = ({ id, category, phone, dropData }) => {
+const PhoneFormGroup = ({
+  id,
+  category,
+  phone,
+  modifyProperty,
+  removeProperty,
+}) => {
   const [_phone, setPhone] = useState('');
   const [_category, setCategory] = useState('');
   const [bu_phone, setBuPhone] = useState('');
   const [bu_category, setBuCategory] = useState('');
   const [changeOccured, setChangeOccured] = useState(false);
+  const [changes, setChanges] = useState(null);
 
   useEffect(() => {
     setCategory(_category || category);
@@ -20,6 +27,29 @@ const PhoneFormGroup = ({ id, category, phone, dropData }) => {
     setCategory(bu_category);
     setPhone(bu_phone);
     setChangeOccured(false);
+    setChanges(null);
+  };
+
+  const saveProperty = () => {
+    setChanges({
+      action: 'update',
+      id: id,
+      category: _category,
+      type: 'phone',
+      email: _phone,
+    });
+  };
+
+  const deleteProperty = () => {
+    resetPhone();
+
+    setChanges({
+      action: 'remove',
+      id: id,
+      category: _category,
+      type: 'phone',
+      email: _phone,
+    });
   };
 
   const onChangeHandler = e => {
@@ -85,33 +115,46 @@ const PhoneFormGroup = ({ id, category, phone, dropData }) => {
               onKeyUp={onKeyupHandler}
             />
           </Col>
-          <Col className="my-3" xs={12} md={changeOccured ? 3 : 6}>
-            <span
-              onClick={() => {
-                dropData({
-                  id: id,
-                  category: _category,
-                  type: 'phone',
-                  phone: _phone,
-                });
-              }}
-              className="btn btn-outline-primary d-inline-block border border-primary rounded font-weight-bold"
-            >
-              <i className="fas fa-pencil-alt fw"></i> Save
-            </span>
-          </Col>
           {changeOccured ? (
-            <Col className="my-3" xs={12} md={3}>
-              <span
-                onClick={resetPhone}
-                className="btn btn-outline-success d-inline-block border border-success rounded font-weight-bold"
-              >
-                <i className="fas fa-stop fw"></i> Cancel
+            <Col className="my-3" xs={12}>
+              <span>
+                onClick={saveProperty}
+                className="btn btn-outline-primary d-inline-block border
+                border-primary rounded font-weight-bold" >
+                <i className="fas fa-pencil-alt fw"></i> Save
               </span>
             </Col>
           ) : null}
-          <Col className="my-3" xs={12} md={changeOccured ? 3 : 6}>
-            <span className="btn btn-outline-danger d-inline-block border border-danger rounded font-weight-bold">
+          {changeOccured || changes ? (
+            <>
+              <Col className="my-3" xs={12}>
+                <span
+                  onClick={resetPhone}
+                  className="btn btn-outline-success d-inline-block border border-success rounded font-weight-bold"
+                >
+                  <i className="fas fa-stop fw"></i> Cancel
+                </span>
+              </Col>
+
+              <Col className="my-3" xs={12}>
+                <span
+                  onClick={() => {
+                    changes && changes.action === 'update'
+                      ? modifyProperty(changes)
+                      : removeProperty(changes);
+                  }}
+                  className="btn btn-outline-success d-inline-block border border-success rounded font-weight-bold"
+                >
+                  <i className="fas fa-go fw"></i> Apply
+                </span>
+              </Col>
+            </>
+          ) : null}
+          <Col className="my-3" xs={12}>
+            <span
+              onClick={deleteProperty}
+              className="btn btn-outline-danger d-inline-block border border-danger rounded font-weight-bold"
+            >
               <i className="fas fa-trash-alt fw"></i> Remove
             </span>
           </Col>

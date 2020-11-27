@@ -17,8 +17,13 @@ export const getContacts = asyncHandler(async (req, res) => {
   );
 
   // @ts-ignore
-  const contacts = await Contacts.find({ owner: req.user._id }).populate(
-    'owner'
+  const contacts = await Contacts.find({ owner: req.user }).populate('owner');
+
+  console.log(
+    `\n\n\t\t\tContacts: ${JSON.stringify(contacts)}\tOwner: ${JSON.stringify(
+      // @ts-ignore
+      req.user
+    )}\n\n\n`
   );
 
   res.json({
@@ -35,6 +40,7 @@ export const getContact = asyncHandler(async (req, res) => {
   logger.info(`Route: /api/contact/id Requested URL: ${req.url}/${id}`);
 
   const contact = await Contacts.find({
+    // @ts-ignore
     $and: [{ _id: `${id}` }, { owner: `${req.user._id}` }],
   });
 

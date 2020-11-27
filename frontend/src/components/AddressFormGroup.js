@@ -2,7 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Form, Dropdown, Row, Col, Container } from 'react-bootstrap';
 import { OPTIONS } from '../constants/DropdownConstants';
 
-const AddressFormGroup = ({ id, category, address, dropData }) => {
+const AddressFormGroup = ({
+  id,
+  category,
+  address,
+  modifyProperty,
+  removeProperty,
+}) => {
   const [street, setStreet] = useState('');
   const [city, setCity] = useState('');
   const [zipcode, setZipcode] = useState('');
@@ -184,14 +190,13 @@ const AddressFormGroup = ({ id, category, address, dropData }) => {
 
           <Col className="my-3" xs={12} md={6}>
             <span
-              onClick={() => {
-                dropData({
-                  id: id,
-                  category: _category,
-                  type: 'address',
-                  address: { street, city, zipcode },
-                });
-              }}
+              /* onClick={modifyProperty({
+                id: id,
+                category: _category,
+                type: 'address',
+                address: { street, city, zipcode },
+              })} */
+              onClick={() => console.log(`${id} modified address`)}
               className="btn btn-outline-primary d-inline-block border border-primary rounded font-weight-bold"
             >
               <i className="fas fa-pencil-alt fw"></i> Save
@@ -199,7 +204,16 @@ const AddressFormGroup = ({ id, category, address, dropData }) => {
           </Col>
 
           <Col className="my-3" xs={12} md={6}>
-            <span className="btn btn-outline-danger d-inline-block border border-danger rounded font-weight-bold">
+            <span
+              /* onClick={removeProperty({
+                id: id,
+                category: _category,
+                type: 'address',
+                address: { street, city, zipcode },
+              })} */
+              onClick={() => console.log(`${id} wants to remove address`)}
+              className="btn btn-outline-danger d-inline-block border border-danger rounded font-weight-bold"
+            >
               <i className="fas fa-trash-alt fw"></i> Remove
             </span>
           </Col>

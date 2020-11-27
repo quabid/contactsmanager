@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Row, Col } from 'react-bootstrap';
-import CustomButton from './CustomButton';
 
-const NameFormGroup = ({ id, firstName, lastName, dropData }) => {
+const NameFormGroup = ({ id, firstName, lastName, modifyProperty }) => {
   const [fname, setFname] = useState('');
   const [lname, setLname] = useState('');
   const [bu_fname, setBuFname] = useState('');
@@ -49,6 +48,7 @@ const NameFormGroup = ({ id, firstName, lastName, dropData }) => {
             value={fname}
             onChange={onFnameChangeHandler}
             onKeyUp={onFnameKeyupHandler}
+            // updateContact
           />
         </Col>
         <Col xs={12} md={6}>
@@ -58,6 +58,7 @@ const NameFormGroup = ({ id, firstName, lastName, dropData }) => {
             size="lg"
             as="input"
             type="text"
+            // updateContact
             value={lname}
             onChange={onLnameChangeHandler}
             onKeyUp={onLnameKeyupHandler}
@@ -67,14 +68,13 @@ const NameFormGroup = ({ id, firstName, lastName, dropData }) => {
       <Row>
         <Col className="my-3" xs={12} md={6}>
           <span
-            onClick={() => {
-              dropData({
-                id: id,
-                type: 'name',
-                fname: fname,
-                lname: lname,
-              });
-            }}
+            /* onClick={modifyProperty({
+              id: id,
+              type: 'name',
+              fname: fname,
+              lname: lname,
+            })} */
+            onClick={() => console.log(`${id} modified name`)}
             className="btn btn-outline-primary d-inline-block border border-primary rounded font-weight-bold"
           >
             <i className="fas fa-pencil-alt fw"></i> Save
@@ -83,7 +83,11 @@ const NameFormGroup = ({ id, firstName, lastName, dropData }) => {
         <Col className="my-3" xs={12} md={6}>
           <span
             onClick={resetName}
-            className="btn btn-outline-success d-inline-block border border-success rounded font-weight-bold"
+            className={
+              changeOccured
+                ? 'btn btn-outline-success d-inline-block border border-success rounded font-weight-bold'
+                : 'btn btn-outline-light d-inline-block border border-light rounded font-weight-normal'
+            }
           >
             <i className="fas fa-stop fw"></i> Cancel
           </span>
