@@ -20,6 +20,7 @@ const AddressFormGroup = ({
   const [streetChangeOccured, setStreetChangeOccured] = useState(false);
   const [cityChangeOccured, setCityChangeOccured] = useState(false);
   const [zipcodeChangeOccured, setZipcodeChangeOccured] = useState(false);
+  const [changes, setChanges] = useState(null);
 
   useEffect(() => {
     setCategory(_category || category);
@@ -44,42 +45,66 @@ const AddressFormGroup = ({
   const resetStreet = () => {
     setStreet(bu_street);
     setStreetChangeOccured(false);
+    setChanges(null);
   };
 
   const resetCity = () => {
     setCity(bu_city);
     setCityChangeOccured(false);
+    setChanges(null);
   };
 
   const resetZipcode = () => {
     setZipcode(bu_zipcode);
     setZipcodeChangeOccured(false);
+    setChanges(null);
   };
 
   const resetCategory = () => {
     setCategory(bu_category);
   };
 
-  const onStreetChangeHandler = e =>
-    setStreet(
-      e.target.value.trim() !== street.trim()
-        ? e.target.value
-        : bu_street.trim()
-    );
+  const resetAll = () => {
+    resetStreet();
+    resetCity();
+    resetZipcode();
+    resetCategory();
+  };
 
-  const onCityChangeHandler = e =>
-    setCity(
-      e.target.value.trim() !== city.trim()
-        ? e.target.value.trim()
-        : city.trim()
-    );
+  const saveProperty = () => {
+    setChanges({
+      action: 'update',
+      id: id,
+      category: _category,
+      type: 'address',
+      street: street,
+      city: city,
+      zipcode: zipcode,
+    });
+  };
 
-  const onZipcodeChangeHandler = e =>
-    setZipcode(
-      e.target.value.trim() !== zipcode.trim()
-        ? e.target.value.trim()
-        : zipcode.trim()
-    );
+  const deleteProperty = () => {
+    resetStreet();
+    resetCity();
+    resetZipcode();
+    resetCategory();
+
+    setChanges({
+      action: 'remove',
+      id: id,
+      category: _category,
+      type: 'address',
+      street: street,
+      city: city,
+      zipcode: zipcode,
+    });
+  };
+
+  const onStreetChangeHandler = e => setStreet(e.target.value);
+
+  const onCityChangeHandler = e => setCity(e.target.value);
+
+  const onZipcodeChangeHandler = e => setZipcode(e.target.value);
 
   const onStreetKeyup = () =>
     setStreetChangeOccured(street !== bu_street ? true : false);
@@ -209,13 +234,7 @@ const AddressFormGroup = ({
 
           <Col className="my-3" xs={12} md={3}>
             <span
-              /* onClick={removeProperty({
-                id: id,
-                category: _category,
-                type: 'address',
-                address: { street, city, zipcode },
-              })} */
-              onClick={() => console.log(`${id} wants to remove address`)}
+              onClick={deleteProperty}
               className="btn btn-outline-danger d-inline-block border border-danger rounded font-weight-bold"
             >
               <i className="fas fa-trash-alt fw"></i> Remove
@@ -225,18 +244,38 @@ const AddressFormGroup = ({
           {streetChangeOccured || cityChangeOccured || zipcodeChangeOccured ? (
             <Col className="my-3" xs={12} md={3}>
               <span
-                /* onClick={modifyProperty({
-                id: id,
-                category: _category,
-                type: 'address',
-                address: { street, city, zipcode },
-              })} */
-                onClick={() => console.log(`${id} modified address`)}
+                onClick={saveProperty}
                 className="btn btn-outline-primary d-inline-block border border-primary rounded font-weight-bold"
               >
                 <i className="fas fa-pencil-alt fw"></i> Save
               </span>
             </Col>
+          ) : null}
+
+          {changes ? (
+            <>
+              <Col className="my-3" xs={12} md={3}>
+                <span
+                  onClick={() => {
+                    changes && changes.action === 'update'
+                      ? modifyProperty(changes)
+                      : removeProperty(changes);
+                  }}
+                  className="btn btn-outline-success d-inline-block border border-success rounded font-weight-bold"
+                >
+                  <i className="fas fa-go fw"></i> Apply
+                </span>
+              </Col>
+
+              <Col className="my-3" xs={12} md={3}>
+                <span
+                  onClick={resetAll}
+                  className="btn btn-outline-success d-inline-block border border-success rounded font-weight-bold"
+                >
+                  <i className="fas fa-stop fw"></i> Cancel
+                </span>
+              </Col>
+            </>
           ) : null}
         </Row>
       </Container>
