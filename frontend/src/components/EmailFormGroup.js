@@ -128,7 +128,7 @@ const EmailFormGroup = ({
             </Col>
           ) : null}
 
-          {changes || changeOccured ? (
+          {changes ? (
             <>
               <Col className="my-3" xs={12} md={3}>
                 <span
